@@ -1,0 +1,53 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Sarabun:wght@400;500;600;700&display=swap');
+
+@layer base {
+  * {
+    @apply border-steel-200;
+  }
+
+  body {
+    @apply bg-steel-50 text-steel-900 antialiased;
+    font-family: 'Inter', 'Sarabun', system-ui, -apple-system, sans-serif;
+  }
+
+  /* Thai text optimization */
+  :lang(th) {
+    font-family: 'Sarabun', 'Inter', system-ui, -apple-system, sans-serif;
+    line-height: 1.6;
+  }
+
+  ::selection {
+    @apply bg-primary/20 text-primary;
+  }
+}
+
+@layer components {
+  .scrollbar-thin {
+    scrollbar-width: thin;
+    scrollbar-color: theme('colors.steel.300') transparent;
+  }
+
+  .scrollbar-thin::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+  }
+
+  .scrollbar-thin::-webkit-scrollbar-track {
+    background: transparent;
+  }
+
+  .scrollbar-thin::-webkit-scrollbar-thumb {
+    background-color: theme('colors.steel.300');
+    border-radius: 3px;
+  }
+}
+
+@layer utilities {
+  .text-balance {
+    text-wrap: balance;
+  }
+}

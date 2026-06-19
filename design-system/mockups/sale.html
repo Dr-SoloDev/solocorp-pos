@@ -1,0 +1,443 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>SoloCorp POS — ขายสินค้า Mockup</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Sarabun:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            primary: { DEFAULT: '#1A56DB', dark: '#1243AF', light: '#3B82F6', 50: '#EFF6FF', 100: '#DBEAFE', 200: '#BFDBFE', 300: '#93C5FD', 400: '#60A5FA', 500: '#3B82F6', 600: '#2563EB', 700: '#1A56DB', 800: '#1E40AF', 900: '#1E3A8A' },
+            steel: { 50: '#F9FAFB', 100: '#F3F4F6', 200: '#E5E7EB', 300: '#D1D5DB', 400: '#9CA3AF', 500: '#6B7280', 600: '#4B5563', 700: '#374151', 800: '#1F2937', 900: '#111827' },
+            condition: { good: '#059669', 'good-light': '#D1FAE5', fair: '#D97706', 'fair-light': '#FEF3C7', poor: '#DC2626', 'poor-light': '#FEE2E2' },
+            success: { DEFAULT: '#059669', light: '#D1FAE5' },
+            warning: { DEFAULT: '#D97706', light: '#FEF3C7' },
+            danger: { DEFAULT: '#DC2626', light: '#FEE2E2' },
+          },
+          fontFamily: { sans: ['Inter', 'Sarabun', 'system-ui', 'sans-serif'] },
+          borderRadius: { sm: '4px', md: '6px', lg: '8px' },
+          boxShadow: { card: '0 1px 3px rgba(0,0,0,0.08)', 'card-hover': '0 2px 6px rgba(0,0,0,0.12)', dropdown: '0 4px 12px rgba(0,0,0,0.12)' },
+          minHeight: { touch: '44px', input: '40px', button: '44px' },
+        }
+      }
+    }
+  </script>
+  <style>
+    body { font-family: 'Inter', 'Sarabun', system-ui, sans-serif; background: #F9FAFB; }
+    .pb-safe { padding-bottom: env(safe-area-inset-bottom, 8px); }
+    @media (max-width: 639px) { body { padding-bottom: 72px; } }
+  </style>
+</head>
+<body>
+
+  <!-- ═══════════ HEADER ═══════════ -->
+  <header class="sticky top-0 z-50 bg-white border-b border-steel-200 shadow-sm">
+    <div class="px-4 lg:px-6">
+      <div class="flex items-center justify-between h-14 lg:h-16">
+        <div class="flex items-center gap-3">
+          <button class="flex items-center gap-2 text-steel-600 hover:text-steel-900 min-h-[44px] min-w-[44px]">
+            <i data-lucide="arrow-left" class="w-5 h-5"></i>
+            <span class="hidden sm:inline text-sm font-medium">กลับ</span>
+          </button>
+          <div class="flex items-center gap-2">
+            <div class="w-7 h-7 bg-info rounded-lg flex items-center justify-center">
+              <i data-lucide="tag" class="w-3.5 h-3.5 text-white"></i>
+            </div>
+            <h1 class="font-bold text-lg text-steel-900">ขายสินค้า</h1>
+          </div>
+        </div>
+        <div class="flex items-center gap-2">
+          <div class="hidden sm:flex items-center gap-1.5 px-2 py-1 rounded-full bg-success-light text-success text-xs font-medium">
+            <span class="w-1.5 h-1.5 rounded-full bg-success"></span>
+            Online
+          </div>
+          <div class="flex items-center gap-1.5 px-2.5 py-1.5 bg-steel-50 rounded-md text-sm text-steel-600">
+            <i data-lucide="store" class="w-3.5 h-3.5"></i>
+            <span class="font-medium text-steel-700">สาขาหลัก</span>
+            <i data-lucide="chevron-down" class="w-3 h-3 text-steel-400"></i>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Mobile: Quick info bar -->
+    <div class="flex sm:hidden items-center justify-between px-4 py-2 bg-steel-50 border-t border-steel-200 text-xs">
+      <span class="text-steel-500">สาขา: <strong class="text-steel-700">หลัก</strong></span>
+      <span class="flex items-center gap-1"><span class="w-1.5 h-1.5 rounded-full bg-success"></span> Online</span>
+    </div>
+  </header>
+
+  <!-- ═══════════ MAIN ═══════════ -->
+  <div class="flex">
+
+    <main class="flex-1 p-4 lg:p-6 max-w-6xl mx-auto w-full">
+
+      <!-- ═══════ TOP SECTION: SEARCH + FILTERS ═══════ -->
+      <section class="mb-5">
+        <div class="flex flex-col sm:flex-row gap-3">
+          <!-- Search -->
+          <div class="flex-1 relative">
+            <i data-lucide="search" class="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-steel-400"></i>
+            <input type="text" placeholder="ค้นหาสินค้าโดยใช้ชื่อ / หมวดหมู่ / บาร์โค้ด..."
+                   class="w-full h-12 pl-10 pr-10 text-sm bg-white border border-steel-200 rounded-md focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary/20">
+            <button class="absolute right-1 top-1/2 -translate-y-1/2 p-2 text-steel-400 hover:text-steel-600 rounded-md min-w-[36px] min-h-[36px] flex items-center justify-center">
+              <i data-lucide="x" class="w-4 h-4 hidden"></i>
+            </button>
+          </div>
+          <div class="flex gap-2">
+            <select class="h-12 px-3 text-sm bg-white border border-steel-200 rounded-md focus:outline-none focus:border-primary min-w-[120px]">
+              <option>ทุกหมวดหมู่</option>
+              <option>เศษเหล็ก</option>
+              <option>เศษทองแดง</option>
+              <option>เศษอลูมิเนียม</option>
+              <option>อะไหล่รถยนต์</option>
+            </select>
+            <select class="h-12 px-3 text-sm bg-white border border-steel-200 rounded-md focus:outline-none focus:border-primary min-w-[100px]">
+              <option>ทุกสภาพ</option>
+              <option>ดี</option>
+              <option>พอใช้</option>
+              <option>ชำรุด</option>
+            </select>
+            <button class="h-12 px-3 flex items-center gap-1.5 text-sm font-medium text-steel-600 bg-white border border-steel-200 rounded-md hover:bg-steel-50 min-w-[44px] justify-center">
+              <i data-lucide="qr-code" class="w-4 h-4"></i>
+              <span class="hidden sm:inline">สแกน</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- Quick filter chips -->
+        <div class="flex gap-2 mt-3 overflow-x-auto pb-1">
+          <button class="flex items-center gap-1.5 px-3 py-1.5 bg-primary/10 text-primary text-xs font-medium rounded-full border border-primary/20 whitespace-nowrap shrink-0">
+            ทั้งหมด
+            <span class="bg-primary/20 text-primary text-[10px] px-1.5 py-0.5 rounded-full">12</span>
+          </button>
+          <button class="flex items-center gap-1.5 px-3 py-1.5 bg-white text-steel-600 text-xs font-medium rounded-full border border-steel-200 hover:bg-steel-50 whitespace-nowrap shrink-0">
+            เศษเหล็ก
+            <span class="bg-steel-100 text-steel-500 text-[10px] px-1.5 py-0.5 rounded-full">5</span>
+          </button>
+          <button class="flex items-center gap-1.5 px-3 py-1.5 bg-white text-steel-600 text-xs font-medium rounded-full border border-steel-200 hover:bg-steel-50 whitespace-nowrap shrink-0">
+            เศษทองแดง
+            <span class="bg-steel-100 text-steel-500 text-[10px] px-1.5 py-0.5 rounded-full">3</span>
+          </button>
+          <button class="flex items-center gap-1.5 px-3 py-1.5 bg-white text-steel-600 text-xs font-medium rounded-full border border-steel-200 hover:bg-steel-50 whitespace-nowrap shrink-0">
+            อะไหล่รถยนต์
+            <span class="bg-steel-100 text-steel-500 text-[10px] px-1.5 py-0.5 rounded-full">4</span>
+          </button>
+          <button class="flex items-center gap-1.5 px-3 py-1.5 bg-white text-steel-600 text-xs font-medium rounded-full border border-steel-200 hover:bg-steel-50 whitespace-nowrap shrink-0">
+            ดี
+          </button>
+          <button class="flex items-center gap-1.5 px-3 py-1.5 bg-white text-steel-600 text-xs font-medium rounded-full border border-steel-200 hover:bg-steel-50 whitespace-nowrap shrink-0">
+            พอใช้
+          </button>
+        </div>
+      </section>
+
+      <!-- ═══════ SPLIT LAYOUT: Product List (left) + Cart (right) ═══════ -->
+      <div class="grid grid-cols-1 lg:grid-cols-5 gap-4 lg:gap-6">
+
+        <!-- ─── LEFT: Product Grid / List ─── -->
+        <div class="lg:col-span-3 space-y-3">
+
+          <div class="flex items-center justify-between">
+            <h2 class="font-semibold text-base text-steel-900">สินค้าในคลัง</h2>
+            <span class="text-sm text-steel-400">12 รายการ</span>
+          </div>
+
+          <!-- Product Card 1 -->
+          <div class="bg-white rounded-lg border border-steel-200 shadow-card p-4 hover:border-primary/40 hover:shadow-card-hover transition-all cursor-pointer">
+            <div class="flex items-center gap-4">
+              <!-- Thumbnail placeholder -->
+              <div class="w-14 h-14 rounded-lg bg-steel-100 border border-steel-200 flex items-center justify-center shrink-0">
+                <i data-lucide="package" class="w-6 h-6 text-steel-400"></i>
+              </div>
+              <div class="flex-1 min-w-0">
+                <div class="flex items-center gap-2 mb-0.5">
+                  <h3 class="font-medium text-steel-900 text-sm">เหล็กท้าย</h3>
+                  <span class="bg-condition-good-light text-condition-good text-[10px] font-medium px-1.5 py-0.5 rounded-full">ดี</span>
+                </div>
+                <p class="text-xs text-steel-400">เศษเหล็ก • 120 กก. • LOT #PO001</p>
+                <div class="flex items-center gap-3 mt-1 text-xs">
+                  <span class="text-steel-500">รับมา: <strong class="text-steel-700">8 ฿/กก.</strong></span>
+                  <span class="text-success font-medium">ขาย: 15 ฿/กก.</span>
+                  <span class="text-steel-400">| กำไร 7 ฿/กก.</span>
+                </div>
+              </div>
+              <div class="text-right shrink-0">
+                <p class="text-lg font-bold text-steel-900">1,800 ฿</p>
+                <p class="text-[10px] text-steel-400">120 กก. × 15 ฿</p>
+              </div>
+              <button class="w-9 h-9 rounded-lg bg-primary text-white flex items-center justify-center hover:bg-primary-dark transition-colors min-w-[36px] min-h-[36px] shadow-sm">
+                <i data-lucide="plus" class="w-4 h-4"></i>
+              </button>
+            </div>
+          </div>
+
+          <!-- Product Card 2 -->
+          <div class="bg-white rounded-lg border border-steel-200 shadow-card p-4 hover:border-primary/40 hover:shadow-card-hover transition-all cursor-pointer">
+            <div class="flex items-center gap-4">
+              <div class="w-14 h-14 rounded-lg bg-steel-100 border border-steel-200 flex items-center justify-center shrink-0">
+                <i data-lucide="package" class="w-6 h-6 text-steel-400"></i>
+              </div>
+              <div class="flex-1 min-w-0">
+                <div class="flex items-center gap-2 mb-0.5">
+                  <h3 class="font-medium text-steel-900 text-sm">ทองแดง</h3>
+                  <span class="bg-condition-fair-light text-condition-fair text-[10px] font-medium px-1.5 py-0.5 rounded-full">พอใช้</span>
+                </div>
+                <p class="text-xs text-steel-400">เศษทองแดง • 30 กก. • LOT #PO003</p>
+                <div class="flex items-center gap-3 mt-1 text-xs">
+                  <span class="text-steel-500">รับมา: <strong class="text-steel-700">65 ฿/กก.</strong></span>
+                  <span class="text-success font-medium">ขาย: 120 ฿/กก.</span>
+                  <span class="text-steel-400">| กำไร 55 ฿/กก.</span>
+                </div>
+              </div>
+              <div class="text-right shrink-0">
+                <p class="text-lg font-bold text-steel-900">3,600 ฿</p>
+                <p class="text-[10px] text-steel-400">30 กก. × 120 ฿</p>
+              </div>
+              <button class="w-9 h-9 rounded-lg bg-primary text-white flex items-center justify-center hover:bg-primary-dark transition-colors min-w-[36px] min-h-[36px] shadow-sm">
+                <i data-lucide="plus" class="w-4 h-4"></i>
+              </button>
+            </div>
+          </div>
+
+          <!-- Product Card 3 -->
+          <div class="bg-white rounded-lg border border-steel-200 shadow-card p-4 hover:border-primary/40 hover:shadow-card-hover transition-all cursor-pointer">
+            <div class="flex items-center gap-4">
+              <div class="w-14 h-14 rounded-lg bg-steel-100 border border-steel-200 flex items-center justify-center shrink-0">
+                <i data-lucide="package" class="w-6 h-6 text-steel-400"></i>
+              </div>
+              <div class="flex-1 min-w-0">
+                <div class="flex items-center gap-2 mb-0.5">
+                  <h3 class="font-medium text-steel-900 text-sm">เหล็กเส้น</h3>
+                  <span class="bg-condition-fair-light text-condition-fair text-[10px] font-medium px-1.5 py-0.5 rounded-full">พอใช้</span>
+                  <span class="flex items-center gap-0.5 text-warning text-[10px] font-medium">
+                    <i data-lucide="clock" class="w-3 h-3"></i>
+                    30 วัน
+                  </span>
+                </div>
+                <p class="text-xs text-steel-400">เศษเหล็ก • 80 กก. • LOT #PO002</p>
+                <div class="flex items-center gap-3 mt-1 text-xs">
+                  <span class="text-steel-500">รับมา: <strong class="text-steel-700">5 ฿/กก.</strong></span>
+                  <span class="text-success font-medium">ขาย: 12 ฿/กก.</span>
+                  <span class="text-steel-400">| กำไร 7 ฿/กก.</span>
+                </div>
+              </div>
+              <div class="text-right shrink-0">
+                <p class="text-lg font-bold text-steel-900">960 ฿</p>
+                <p class="text-[10px] text-steel-400">80 กก. × 12 ฿</p>
+              </div>
+              <button class="w-9 h-9 rounded-lg bg-primary text-white flex items-center justify-center hover:bg-primary-dark transition-colors min-w-[36px] min-h-[36px] shadow-sm">
+                <i data-lucide="plus" class="w-4 h-4"></i>
+              </button>
+            </div>
+          </div>
+
+          <!-- Product Card 4 -->
+          <div class="bg-white rounded-lg border border-steel-200 shadow-card p-4 hover:border-primary/40 hover:shadow-card-hover transition-all cursor-pointer">
+            <div class="flex items-center gap-4">
+              <div class="w-14 h-14 rounded-lg bg-steel-100 border border-steel-200 flex items-center justify-center shrink-0">
+                <i data-lucide="package" class="w-6 h-6 text-steel-400"></i>
+              </div>
+              <div class="flex-1 min-w-0">
+                <div class="flex items-center gap-2 mb-0.5">
+                  <h3 class="font-medium text-steel-900 text-sm">อะไหล่รถยนต์</h3>
+                  <span class="bg-condition-good-light text-condition-good text-[10px] font-medium px-1.5 py-0.5 rounded-full">ดี</span>
+                  <span class="flex items-center gap-0.5 text-danger text-[10px] font-medium">
+                    <i data-lucide="clock" class="w-3 h-3"></i>
+                    45 วัน
+                  </span>
+                </div>
+                <p class="text-xs text-steel-400">อะไหล่รถยนต์ • 15 ชิ้น • LOT #PO005</p>
+                <div class="flex items-center gap-3 mt-1 text-xs">
+                  <span class="text-steel-500">รับมา: <strong class="text-steel-700">50 ฿/ชิ้น</strong></span>
+                  <span class="text-success font-medium">ขาย: 120 ฿/ชิ้น</span>
+                  <span class="text-steel-400">| กำไร 70 ฿/ชิ้น</span>
+                </div>
+              </div>
+              <div class="text-right shrink-0">
+                <p class="text-lg font-bold text-steel-900">1,800 ฿</p>
+                <p class="text-[10px] text-steel-400">15 ชิ้น × 120 ฿</p>
+              </div>
+              <button class="w-9 h-9 rounded-lg bg-primary text-white flex items-center justify-center hover:bg-primary-dark transition-colors min-w-[36px] min-h-[36px] shadow-sm">
+                <i data-lucide="plus" class="w-4 h-4"></i>
+              </button>
+            </div>
+          </div>
+
+        </div>
+
+        <!-- ─── RIGHT: Cart (ตะกร้าสินค้า) ─── -->
+        <div class="lg:col-span-2">
+          <div class="bg-white rounded-lg border border-steel-200 shadow-card lg:sticky lg:top-20">
+            <!-- Cart Header -->
+            <div class="flex items-center justify-between px-4 py-3 border-b border-steel-200">
+              <div class="flex items-center gap-2">
+                <i data-lucide="shopping-bag" class="w-5 h-5 text-primary"></i>
+                <h2 class="font-semibold text-base text-steel-900">ตะกร้าสินค้า</h2>
+                <span class="bg-primary/10 text-primary text-xs font-medium px-2 py-0.5 rounded-full">2</span>
+              </div>
+              <button class="text-xs text-danger hover:text-danger/80 font-medium flex items-center gap-1">
+                <i data-lucide="trash-2" class="w-3 h-3"></i>
+                ล้างทั้งหมด
+              </button>
+            </div>
+
+            <!-- Cart Items -->
+            <div class="divide-y divide-steel-100">
+              <!-- Cart Item 1 -->
+              <div class="p-4">
+                <div class="flex items-start justify-between mb-2">
+                  <div>
+                    <div class="flex items-center gap-2">
+                      <h3 class="font-medium text-sm text-steel-900">เหล็กท้าย</h3>
+                      <span class="bg-condition-good-light text-condition-good text-[10px] font-medium px-1.5 py-0.5 rounded-full">ดี</span>
+                    </div>
+                    <p class="text-xs text-steel-400 mt-0.5">รับมา: 8 ฿/กก.</p>
+                  </div>
+                  <button class="p-1 text-steel-400 hover:text-danger min-w-[32px] min-h-[32px] flex items-center justify-center">
+                    <i data-lucide="x" class="w-4 h-4"></i>
+                  </button>
+                </div>
+                <div class="flex items-center gap-3">
+                  <!-- Qty control -->
+                  <div class="flex items-center border border-steel-200 rounded-md">
+                    <button class="px-2 py-1.5 text-steel-500 hover:text-steel-700 hover:bg-steel-50 min-w-[36px] min-h-[36px] flex items-center justify-center">−</button>
+                    <input type="number" value="50" class="w-16 text-center text-sm font-medium border-x border-steel-200 py-1.5 bg-white focus:outline-none">
+                    <button class="px-2 py-1.5 text-steel-500 hover:text-steel-700 hover:bg-steel-50 min-w-[36px] min-h-[36px] flex items-center justify-center">+</button>
+                  </div>
+                  <span class="text-xs text-steel-400">กก.</span>
+                  <div class="ml-auto text-right">
+                    <p class="text-sm font-semibold text-steel-900">750 ฿</p>
+                    <p class="text-[10px] text-steel-400">15 ฿/กก.</p>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Cart Item 2 -->
+              <div class="p-4">
+                <div class="flex items-start justify-between mb-2">
+                  <div>
+                    <div class="flex items-center gap-2">
+                      <h3 class="font-medium text-sm text-steel-900">ทองแดง</h3>
+                      <span class="bg-condition-fair-light text-condition-fair text-[10px] font-medium px-1.5 py-0.5 rounded-full">พอใช้</span>
+                    </div>
+                    <p class="text-xs text-steel-400 mt-0.5">รับมา: 65 ฿/กก.</p>
+                  </div>
+                  <button class="p-1 text-steel-400 hover:text-danger min-w-[32px] min-h-[32px] flex items-center justify-center">
+                    <i data-lucide="x" class="w-4 h-4"></i>
+                  </button>
+                </div>
+                <div class="flex items-center gap-3">
+                  <div class="flex items-center border border-steel-200 rounded-md">
+                    <button class="px-2 py-1.5 text-steel-500 hover:text-steel-700 hover:bg-steel-50 min-w-[36px] min-h-[36px] flex items-center justify-center">−</button>
+                    <input type="number" value="10" class="w-16 text-center text-sm font-medium border-x border-steel-200 py-1.5 bg-white focus:outline-none">
+                    <button class="px-2 py-1.5 text-steel-500 hover:text-steel-700 hover:bg-steel-50 min-w-[36px] min-h-[36px] flex items-center justify-center">+</button>
+                  </div>
+                  <span class="text-xs text-steel-400">กก.</span>
+                  <div class="ml-auto text-right">
+                    <p class="text-sm font-semibold text-steel-900">1,200 ฿</p>
+                    <p class="text-[10px] text-steel-400">120 ฿/กก.</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Discount -->
+            <div class="px-4 py-3 border-t border-steel-200">
+              <div class="flex items-center gap-2">
+                <div class="flex-1 relative">
+                  <i data-lucide="percentage" class="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-steel-400"></i>
+                  <input type="text" placeholder="ส่วนลด" class="w-full h-10 pl-9 pr-3 text-sm bg-white border border-steel-200 rounded-md focus:outline-none focus:border-primary">
+                </div>
+                <select class="h-10 px-3 text-sm bg-white border border-steel-200 rounded-md focus:outline-none focus:border-primary">
+                  <option>บาท</option>
+                  <option>%</option>
+                </select>
+                <span class="text-sm text-steel-400 font-medium">0 ฿</span>
+              </div>
+            </div>
+
+            <!-- Summary -->
+            <div class="px-4 py-3 border-t border-steel-200 space-y-1.5">
+              <div class="flex items-center justify-between text-sm">
+                <span class="text-steel-500">รวม</span>
+                <span class="font-medium text-steel-900">1,950 ฿</span>
+              </div>
+              <div class="flex items-center justify-between text-sm">
+                <span class="text-steel-500">ส่วนลด</span>
+                <span class="text-steel-400">0 ฿</span>
+              </div>
+              <div class="flex items-center justify-between text-sm">
+                <span class="text-steel-500">กำไร (ประมาณ)</span>
+                <span class="text-success font-medium">+ 975 ฿</span>
+              </div>
+              <div class="flex items-center justify-between pt-2 border-t border-steel-200">
+                <span class="font-semibold text-steel-900">สุทธิ</span>
+                <span class="text-xl font-bold text-steel-900">1,950 ฿</span>
+              </div>
+            </div>
+
+            <!-- Payment -->
+            <div class="px-4 py-3 border-t border-steel-200">
+              <div class="flex items-center gap-2 mb-3">
+                <label class="text-sm text-steel-600 font-medium shrink-0">ชำระโดย:</label>
+                <select class="flex-1 h-10 px-3 text-sm bg-white border border-steel-200 rounded-md focus:outline-none focus:border-primary">
+                  <option>เงินสด</option>
+                  <option>โอนธนาคาร</option>
+                </select>
+              </div>
+            </div>
+
+            <!-- Actions -->
+            <div class="px-4 py-3 border-t border-steel-200 flex flex-col sm:flex-row gap-2">
+              <button class="flex items-center justify-center gap-1.5 px-4 py-2.5 text-sm font-medium text-steel-600 bg-white border border-steel-200 rounded-md hover:bg-steel-50 min-h-[44px] flex-1">
+                <i data-lucide="printer" class="w-4 h-4"></i>
+                <span>พิมพ์</span>
+              </button>
+              <button class="flex items-center justify-center gap-1.5 px-5 py-2.5 text-sm font-medium text-white bg-success rounded-md hover:bg-green-700 shadow-sm min-h-[44px] flex-1">
+                <i data-lucide="receipt" class="w-4 h-4"></i>
+                <span>ออกใบเสร็จ</span>
+              </button>
+            </div>
+          </div>
+        </div>
+
+      </div><!-- /grid -->
+
+    </main>
+  </div>
+
+  <!-- ═══════════ BOTTOM NAV (Mobile) ═══════════ -->
+  <nav class="fixed bottom-0 left-0 right-0 z-50 bg-white border-t border-steel-200 lg:hidden pb-safe">
+    <div class="grid grid-cols-4 h-16">
+      <a href="#" class="flex flex-col items-center justify-center gap-0.5 text-steel-400">
+        <i data-lucide="shopping-cart" class="w-5 h-5"></i>
+        <span class="text-[10px]">รับซื้อ</span>
+      </a>
+      <a href="#" class="flex flex-col items-center justify-center gap-0.5 text-primary">
+        <i data-lucide="tag" class="w-5 h-5"></i>
+        <span class="text-[10px] font-medium">ขาย</span>
+      </a>
+      <a href="#" class="flex flex-col items-center justify-center gap-0.5 text-steel-400">
+        <i data-lucide="package" class="w-5 h-5"></i>
+        <span class="text-[10px]">คลัง</span>
+      </a>
+      <a href="#" class="flex flex-col items-center justify-center gap-0.5 text-steel-400">
+        <i data-lucide="bar-chart-3" class="w-5 h-5"></i>
+        <span class="text-[10px]">รายงาน</span>
+      </a>
+    </div>
+  </nav>
+
+  <script>
+    lucide.createIcons();
+  </script>
+</body>
+</html>

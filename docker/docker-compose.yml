@@ -1,0 +1,60 @@
+version: "3.9"
+
+services:
+  # ─── PostgreSQL 16 ────────────────────────────────────
+  postgres:
+    image: postgres:16-alpine
+    container_name: solocorp-db
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: solocorp
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-solocorp_dev_pass}
+      POSTGRES_DB: solocorp_pos
+    ports:
+      - "5432:5432"
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+      - ./docker/init-db.sql:/docker-entrypoint-initdb.d/init-db.sql
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U solocorp"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+
+  # ─── Adminer (DB Admin) ───────────────────────────────
+  adminer:
+    image: adminer:latest
+    container_name: solocorp-adminer
+    restart: unless-stopped
+    ports:
+      - "8080:8080"
+    depends_on:
+      postgres:
+        condition: service_healthy
+
+  # ─── Next.js App (Dev) ────────────────────────────────
+  app:
+    build:
+      context: .
+      dockerfile: docker/Dockerfile.dev
+    container_name: solocorp-app
+    restart: unless-stopped
+    ports:
+      - "3000:3000"
+    environment:
+      DOCKER: "true"
+      DATABASE_URL: postgresql://solocorp:${POSTGRES_PASSWORD:-solocorp_dev_pass}@postgres:5432/solocorp_pos
+      NEXTAUTH_URL: http://localhost:3000
+      NEXTAUTH_SECRET: ${NEXTAUTH_SECRET:-dev-secret-change-in-production}
+    volumes:
+      - .:/app
+      - /app/node_modules
+      - /app/.next
+    depends_on:
+      postgres:
+        condition: service_healthy
+    command: ["pnpm", "dev"]
+
+volumes:
+  pgdata:
+    driver: local

@@ -1,0 +1,534 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SoloCorp POS — Dashboard Mockup</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Sarabun:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            primary: { DEFAULT: '#1A56DB', dark: '#1243AF', light: '#3B82F6', 50: '#EFF6FF', 100: '#DBEAFE', 200: '#BFDBFE', 300: '#93C5FD', 400: '#60A5FA', 500: '#3B82F6', 600: '#2563EB', 700: '#1A56DB', 800: '#1E40AF', 900: '#1E3A8A' },
+            steel: { 50: '#F9FAFB', 100: '#F3F4F6', 200: '#E5E7EB', 300: '#D1D5DB', 400: '#9CA3AF', 500: '#6B7280', 600: '#4B5563', 700: '#374151', 800: '#1F2937', 900: '#111827' },
+            condition: { good: '#059669', 'good-light': '#D1FAE5', fair: '#D97706', 'fair-light': '#FEF3C7', poor: '#DC2626', 'poor-light': '#FEE2E2' },
+            success: { DEFAULT: '#059669', light: '#D1FAE5' },
+            warning: { DEFAULT: '#D97706', light: '#FEF3C7' },
+            danger: { DEFAULT: '#DC2626', light: '#FEE2E2' },
+            info: { DEFAULT: '#0284C7', light: '#E0F2FE' },
+          },
+          fontFamily: { sans: ['Inter', 'Sarabun', 'system-ui', 'sans-serif'], thai: ['Sarabun', 'Inter', 'sans-serif'] },
+          borderRadius: { sm: '4px', md: '6px', lg: '8px' },
+          boxShadow: { card: '0 1px 3px rgba(0,0,0,0.08)', 'card-hover': '0 2px 6px rgba(0,0,0,0.12)', dropdown: '0 4px 12px rgba(0,0,0,0.12)', modal: '0 8px 24px rgba(0,0,0,0.16)' },
+          minHeight: { touch: '44px', input: '40px', button: '44px' },
+          minWidth: { touch: '44px' },
+        }
+      }
+    }
+  </script>
+  <style>
+    body { font-family: 'Inter', 'Sarabun', system-ui, sans-serif; }
+    /* Mobile bottom nav spacing */
+    .pb-safe { padding-bottom: env(safe-area-inset-bottom, 8px); }
+    @media (max-width: 639px) {
+      body { padding-bottom: 72px; }
+    }
+  </style>
+</head>
+<body class="bg-steel-50 text-steel-900 antialiased">
+
+  <!-- ═══════════ HEADER (Desktop & Mobile) ═══════════ -->
+  <header class="sticky top-0 z-50 bg-white border-b border-steel-200 shadow-sm">
+    <div class="px-4 lg:px-6">
+      <div class="flex items-center justify-between h-14 lg:h-16">
+
+        <!-- Left: Logo + Branch -->
+        <div class="flex items-center gap-3">
+          <button class="lg:hidden p-2 -ml-2 rounded-md hover:bg-steel-100 min-w-[44px] min-h-[44px] flex items-center justify-center" aria-label="เมนู">
+            <i data-lucide="menu" class="w-5 h-5 text-steel-700"></i>
+          </button>
+          <div class="flex items-center gap-2">
+            <div class="w-8 h-8 bg-primary rounded-lg flex items-center justify-center shadow-sm">
+              <i data-lucide="wallet" class="w-4 h-4 text-white"></i>
+            </div>
+            <span class="font-bold text-lg text-steel-900 hidden sm:block">SoloCorp POS</span>
+          </div>
+          <div class="hidden sm:flex items-center gap-1.5 px-3 py-1.5 bg-steel-50 rounded-md border border-steel-200 text-sm text-steel-700 cursor-pointer hover:bg-steel-100">
+            <i data-lucide="store" class="w-4 h-4 text-steel-500"></i>
+            <span class="font-medium">สาขาหลัก</span>
+            <i data-lucide="chevron-down" class="w-3.5 h-3.5 text-steel-400"></i>
+          </div>
+        </div>
+
+        <!-- Center: Quick Actions (Desktop) -->
+        <div class="hidden lg:flex items-center gap-1">
+          <button class="flex items-center gap-1.5 px-3 py-2 text-sm font-medium text-steel-600 hover:bg-steel-100 rounded-md transition-colors min-h-[44px]">
+            <i data-lucide="shopping-cart" class="w-4 h-4"></i>
+            รับซื้อ
+          </button>
+          <button class="flex items-center gap-1.5 px-3 py-2 text-sm font-medium text-steel-600 hover:bg-steel-100 rounded-md transition-colors min-h-[44px]">
+            <i data-lucide="tag" class="w-4 h-4"></i>
+            ขาย
+          </button>
+          <button class="flex items-center gap-1.5 px-3 py-2 text-sm font-medium text-steel-600 hover:bg-steel-100 rounded-md transition-colors min-h-[44px]">
+            <i data-lucide="package" class="w-4 h-4"></i>
+            คลัง
+          </button>
+        </div>
+
+        <!-- Right: Search + User -->
+        <div class="flex items-center gap-2">
+          <button class="p-2 rounded-md hover:bg-steel-100 min-w-[44px] min-h-[44px] flex items-center justify-center relative">
+            <i data-lucide="search" class="w-5 h-5 text-steel-600"></i>
+          </button>
+          <!-- Offline indicator -->
+          <div class="hidden sm:flex items-center gap-1.5 px-2 py-1 rounded-full bg-success-light text-success text-xs font-medium">
+            <span class="w-1.5 h-1.5 rounded-full bg-success"></span>
+            Online
+          </div>
+          <div class="flex items-center gap-2 pl-2 border-l border-steel-200">
+            <div class="w-8 h-8 rounded-full bg-primary/10 flex items-center justify-center">
+              <i data-lucide="user" class="w-4 h-4 text-primary"></i>
+            </div>
+            <div class="hidden md:block text-sm">
+              <div class="font-medium text-steel-800">Admin</div>
+              <div class="text-xs text-steel-400">ผู้จัดการ</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Mobile: Branch Selector (visible only on mobile) -->
+    <div class="flex sm:hidden items-center gap-1.5 px-4 py-2 bg-steel-50 border-t border-steel-200 text-sm">
+      <i data-lucide="store" class="w-3.5 h-3.5 text-steel-500"></i>
+      <span class="text-steel-600">สาขา:</span>
+      <span class="font-medium text-steel-800">หลัก</span>
+      <i data-lucide="chevron-down" class="w-3.5 h-3.5 text-steel-400"></i>
+      <div class="ml-auto flex items-center gap-1.5">
+        <span class="w-1.5 h-1.5 rounded-full bg-success"></span>
+        <span class="text-xs text-steel-400">Online</span>
+      </div>
+    </div>
+  </header>
+
+  <!-- ═══════════ MAIN LAYOUT ═══════════ -->
+  <div class="flex">
+
+    <!-- Side Navigation (Desktop) -->
+    <nav class="hidden lg:flex flex-col w-64 bg-white border-r border-steel-200 min-h-[calc(100vh-4rem)] shrink-0">
+      <div class="flex-1 py-4 px-3 space-y-1">
+        <!-- Nav Item: Dashboard (active) -->
+        <a href="#" class="flex items-center gap-3 px-3 py-2.5 rounded-md bg-primary/10 text-primary font-medium">
+          <i data-lucide="layout-dashboard" class="w-5 h-5"></i>
+          <span>แดชบอร์ด</span>
+        </a>
+        <!-- Nav Item: Purchase -->
+        <a href="#" class="flex items-center gap-3 px-3 py-2.5 rounded-md text-steel-600 hover:bg-steel-100 hover:text-steel-800 transition-colors">
+          <i data-lucide="shopping-cart" class="w-5 h-5"></i>
+          <span>รับซื้อ</span>
+        </a>
+        <!-- Nav Item: Sale -->
+        <a href="#" class="flex items-center gap-3 px-3 py-2.5 rounded-md text-steel-600 hover:bg-steel-100 hover:text-steel-800 transition-colors">
+          <i data-lucide="tag" class="w-5 h-5"></i>
+          <span>ขายสินค้า</span>
+        </a>
+        <!-- Nav Item: Inventory -->
+        <a href="#" class="flex items-center gap-3 px-3 py-2.5 rounded-md text-steel-600 hover:bg-steel-100 hover:text-steel-800 transition-colors">
+          <i data-lucide="package" class="w-5 h-5"></i>
+          <span>คลังสินค้า</span>
+          <span class="ml-auto bg-warning-light text-warning text-xs font-medium px-2 py-0.5 rounded-full">3</span>
+        </a>
+        <!-- Nav Item: Reports -->
+        <a href="#" class="flex items-center gap-3 px-3 py-2.5 rounded-md text-steel-600 hover:bg-steel-100 hover:text-steel-800 transition-colors">
+          <i data-lucide="bar-chart-3" class="w-5 h-5"></i>
+          <span>รายงาน</span>
+        </a>
+        <!-- Nav Item: Sellers -->
+        <a href="#" class="flex items-center gap-3 px-3 py-2.5 rounded-md text-steel-600 hover:bg-steel-100 hover:text-steel-800 transition-colors">
+          <i data-lucide="users" class="w-5 h-5"></i>
+          <span>ผู้ขาย</span>
+        </a>
+      </div>
+      <!-- Bottom: Settings -->
+      <div class="p-3 border-t border-steel-200">
+        <a href="#" class="flex items-center gap-3 px-3 py-2.5 rounded-md text-steel-600 hover:bg-steel-100 transition-colors">
+          <i data-lucide="settings" class="w-5 h-5"></i>
+          <span>ตั้งค่า</span>
+        </a>
+      </div>
+    </nav>
+
+    <!-- ═══════════ MAIN CONTENT ═══════════ -->
+    <main class="flex-1 p-4 lg:p-6 max-w-7xl mx-auto w-full">
+
+      <!-- Page Header -->
+      <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 mb-6">
+        <div>
+          <h1 class="text-2xl lg:text-3xl font-bold text-steel-900">แดชบอร์ด</h1>
+          <p class="text-sm text-steel-500 mt-0.5">ภาพรวมร้านค้าประจำวัน — พฤหัสบดี 19 มิถุนายน 2569</p>
+        </div>
+        <div class="flex items-center gap-2">
+          <button class="flex items-center gap-1.5 px-4 py-2 text-sm font-medium text-steel-600 bg-white border border-steel-200 rounded-md hover:bg-steel-50 min-h-[44px] shadow-sm transition-colors">
+            <i data-lucide="refresh-cw" class="w-4 h-4"></i>
+            <span class="hidden sm:inline">รีเฟรช</span>
+          </button>
+          <button class="flex items-center gap-1.5 px-4 py-2 text-sm font-medium text-white bg-primary rounded-md hover:bg-primary-dark min-h-[44px] shadow-sm transition-colors">
+            <i data-lucide="plus" class="w-4 h-4"></i>
+            <span class="hidden sm:inline">รายการใหม่</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- ═══ KPI CARDS ═══ -->
+      <div class="grid grid-cols-2 lg:grid-cols-4 gap-3 lg:gap-4 mb-6">
+
+        <!-- KPI: ยอดรับซื้อวันนี้ -->
+        <div class="bg-white rounded-lg border border-steel-200 p-4 shadow-card">
+          <div class="flex items-start justify-between">
+            <div>
+              <p class="text-xs lg:text-caption text-steel-500 font-medium mb-1">ยอดรับซื้อวันนี้</p>
+              <p class="text-xl lg:text-2xl font-bold text-steel-900">8,450 ฿</p>
+            </div>
+            <div class="w-10 h-10 rounded-lg bg-primary/10 flex items-center justify-center shrink-0">
+              <i data-lucide="shopping-cart" class="w-5 h-5 text-primary"></i>
+            </div>
+          </div>
+          <div class="flex items-center gap-1 mt-2 text-xs text-steel-500">
+            <span class="text-success font-medium">↑ 12%</span>
+            <span>จากเมื่อวาน</span>
+          </div>
+        </div>
+
+        <!-- KPI: ยอดขายวันนี้ -->
+        <div class="bg-white rounded-lg border border-steel-200 p-4 shadow-card">
+          <div class="flex items-start justify-between">
+            <div>
+              <p class="text-xs lg:text-caption text-steel-500 font-medium mb-1">ยอดขายวันนี้</p>
+              <p class="text-xl lg:text-2xl font-bold text-steel-900">12,300 ฿</p>
+            </div>
+            <div class="w-10 h-10 rounded-lg bg-info/10 flex items-center justify-center shrink-0">
+              <i data-lucide="tag" class="w-5 h-5 text-info"></i>
+            </div>
+          </div>
+          <div class="flex items-center gap-1 mt-2 text-xs text-steel-500">
+            <span class="text-success font-medium">↑ 8%</span>
+            <span>จากเมื่อวาน</span>
+          </div>
+        </div>
+
+        <!-- KPI: กำไรวันนี้ -->
+        <div class="bg-white rounded-lg border border-steel-200 p-4 shadow-card">
+          <div class="flex items-start justify-between">
+            <div>
+              <p class="text-xs lg:text-caption text-steel-500 font-medium mb-1">กำไรวันนี้</p>
+              <p class="text-xl lg:text-2xl font-bold text-success">3,850 ฿</p>
+            </div>
+            <div class="w-10 h-10 rounded-lg bg-success/10 flex items-center justify-center shrink-0">
+              <i data-lucide="trending-up" class="w-5 h-5 text-success"></i>
+            </div>
+          </div>
+          <div class="flex items-center gap-1 mt-2 text-xs text-steel-500">
+            <span class="text-success font-medium">↑ 5%</span>
+            <span>จากเมื่อวาน</span>
+          </div>
+        </div>
+
+        <!-- KPI: จำนวนบิล -->
+        <div class="bg-white rounded-lg border border-steel-200 p-4 shadow-card">
+          <div class="flex items-start justify-between">
+            <div>
+              <p class="text-xs lg:text-caption text-steel-500 font-medium mb-1">จำนวนบิลวันนี้</p>
+              <p class="text-xl lg:text-2xl font-bold text-steel-900">15 บิล</p>
+            </div>
+            <div class="w-10 h-10 rounded-lg bg-steel-100 flex items-center justify-center shrink-0">
+              <i data-lucide="receipt" class="w-5 h-5 text-steel-600"></i>
+            </div>
+          </div>
+          <div class="flex items-center gap-1 mt-2 text-xs text-steel-500">
+            <span class="text-success font-medium">↑ 3</span>
+            <span>บิลจากเมื่อวาน</span>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- ═══ QUICK ACTION BUTTONS ═══ -->
+      <div class="grid grid-cols-3 sm:grid-cols-6 gap-3 mb-6">
+        <button class="flex flex-col items-center gap-1.5 p-4 bg-white rounded-lg border border-steel-200 shadow-card hover:shadow-card-hover hover:border-primary/30 transition-all min-h-[80px]">
+          <div class="w-12 h-12 rounded-xl bg-primary/10 flex items-center justify-center">
+            <i data-lucide="shopping-cart" class="w-6 h-6 text-primary"></i>
+          </div>
+          <span class="text-sm font-medium text-steel-700">รับซื้อ</span>
+        </button>
+        <button class="flex flex-col items-center gap-1.5 p-4 bg-white rounded-lg border border-steel-200 shadow-card hover:shadow-card-hover hover:border-primary/30 transition-all min-h-[80px]">
+          <div class="w-12 h-12 rounded-xl bg-info/10 flex items-center justify-center">
+            <i data-lucide="tag" class="w-6 h-6 text-info"></i>
+          </div>
+          <span class="text-sm font-medium text-steel-700">ขายสินค้า</span>
+        </button>
+        <button class="flex flex-col items-center gap-1.5 p-4 bg-white rounded-lg border border-steel-200 shadow-card hover:shadow-card-hover hover:border-primary/30 transition-all min-h-[80px]">
+          <div class="w-12 h-12 rounded-xl bg-steel-100 flex items-center justify-center">
+            <i data-lucide="package" class="w-6 h-6 text-steel-600"></i>
+          </div>
+          <span class="text-sm font-medium text-steel-700">คลังสินค้า</span>
+        </button>
+        <button class="flex flex-col items-center gap-1.5 p-4 bg-white rounded-lg border border-steel-200 shadow-card hover:shadow-card-hover hover:border-primary/30 transition-all min-h-[80px]">
+          <div class="w-12 h-12 rounded-xl bg-warning/10 flex items-center justify-center">
+            <i data-lucide="bar-chart-3" class="w-6 h-6 text-warning"></i>
+          </div>
+          <span class="text-sm font-medium text-steel-700">รายงาน</span>
+        </button>
+        <button class="flex flex-col items-center gap-1.5 p-4 bg-white rounded-lg border border-steel-200 shadow-card hover:shadow-card-hover hover:border-primary/30 transition-all min-h-[80px]">
+          <div class="w-12 h-12 rounded-xl bg-success/10 flex items-center justify-center">
+            <i data-lucide="users" class="w-6 h-6 text-success"></i>
+          </div>
+          <span class="text-sm font-medium text-steel-700">ผู้ขาย</span>
+        </button>
+        <button class="flex flex-col items-center gap-1.5 p-4 bg-white rounded-lg border border-steel-200 shadow-card hover:shadow-card-hover hover:border-primary/30 transition-all min-h-[80px]">
+          <div class="w-12 h-12 rounded-xl bg-steel-100 flex items-center justify-center">
+            <i data-lucide="settings" class="w-6 h-6 text-steel-600"></i>
+          </div>
+          <span class="text-sm font-medium text-steel-700">ตั้งค่า</span>
+        </button>
+      </div>
+
+      <!-- ═══ CONTENT GRID (2 columns) ═══ -->
+      <div class="grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-6">
+
+        <!-- Left Column -->
+
+        <!-- Recent Transactions -->
+        <div class="bg-white rounded-lg border border-steel-200 shadow-card">
+          <div class="flex items-center justify-between px-4 lg:px-5 py-3 border-b border-steel-200">
+            <h2 class="font-semibold text-base text-steel-900">รายการล่าสุด</h2>
+            <a href="#" class="text-sm text-primary hover:text-primary-dark font-medium">ดูทั้งหมด →</a>
+          </div>
+          <div class="divide-y divide-steel-100">
+            <!-- Transaction item -->
+            <div class="flex items-center gap-3 px-4 lg:px-5 py-3 hover:bg-steel-50 transition-colors">
+              <div class="w-10 h-10 rounded-lg bg-success/10 flex items-center justify-center shrink-0">
+                <i data-lucide="arrow-down-left" class="w-5 h-5 text-success"></i>
+              </div>
+              <div class="flex-1 min-w-0">
+                <p class="text-sm font-medium text-steel-900 truncate">PO-20260619-001 รับซื้อเหล็กท้าย</p>
+                <p class="text-xs text-steel-400">สมศักดิ์ ใจดี • เมื่อ 10 นาทีที่แล้ว</p>
+              </div>
+              <div class="text-right shrink-0">
+                <p class="text-sm font-semibold text-success">960 ฿</p>
+              </div>
+            </div>
+            <div class="flex items-center gap-3 px-4 lg:px-5 py-3 hover:bg-steel-50 transition-colors">
+              <div class="w-10 h-10 rounded-lg bg-danger/10 flex items-center justify-center shrink-0">
+                <i data-lucide="arrow-up-right" class="w-5 h-5 text-danger"></i>
+              </div>
+              <div class="flex-1 min-w-0">
+                <p class="text-sm font-medium text-steel-900 truncate">SO-20260619-001 ขายเหล็กท้าย</p>
+                <p class="text-xs text-steel-400">ลูกค้า: โรงงานอุตสาหกรรม จำกัด • เมื่อ 30 นาทีที่แล้ว</p>
+              </div>
+              <div class="text-right shrink-0">
+                <p class="text-sm font-semibold text-danger">1,500 ฿</p>
+              </div>
+            </div>
+            <div class="flex items-center gap-3 px-4 lg:px-5 py-3 hover:bg-steel-50 transition-colors">
+              <div class="w-10 h-10 rounded-lg bg-success/10 flex items-center justify-center shrink-0">
+                <i data-lucide="arrow-down-left" class="w-5 h-5 text-success"></i>
+              </div>
+              <div class="flex-1 min-w-0">
+                <p class="text-sm font-medium text-steel-900 truncate">PO-20260619-002 รับซื้อทองแดง</p>
+                <p class="text-xs text-steel-400">ประวิทย์ หนักแน่น • เมื่อ 1 ชั่วโมงที่แล้ว</p>
+              </div>
+              <div class="text-right shrink-0">
+                <p class="text-sm font-semibold text-success">1,950 ฿</p>
+              </div>
+            </div>
+            <div class="flex items-center gap-3 px-4 lg:px-5 py-3 hover:bg-steel-50 transition-colors">
+              <div class="w-10 h-10 rounded-lg bg-danger/10 flex items-center justify-center shrink-0">
+                <i data-lucide="arrow-up-right" class="w-5 h-5 text-danger"></i>
+              </div>
+              <div class="flex-1 min-w-0">
+                <p class="text-sm font-medium text-steel-900 truncate">SO-20260619-002 ขายทองแดง</p>
+                <p class="text-xs text-steel-400">ลูกค้า: บริษัท โลหะกิจ จำกัด • เมื่อ 2 ชั่วโมงที่แล้ว</p>
+              </div>
+              <div class="text-right shrink-0">
+                <p class="text-sm font-semibold text-danger">3,600 ฿</p>
+              </div>
+            </div>
+            <div class="flex items-center gap-3 px-4 lg:px-5 py-3 hover:bg-steel-50 transition-colors">
+              <div class="w-10 h-10 rounded-lg bg-success/10 flex items-center justify-center shrink-0">
+                <i data-lucide="arrow-down-left" class="w-5 h-5 text-success"></i>
+              </div>
+              <div class="flex-1 min-w-0">
+                <p class="text-sm font-medium text-steel-900 truncate">PO-20260619-003 รับซื้ออลูมิเนียม</p>
+                <p class="text-xs text-steel-400">นงลักษณ์ ทรัพย์ทวี • เมื่อ 3 ชั่วโมงที่แล้ว</p>
+              </div>
+              <div class="text-right shrink-0">
+                <p class="text-sm font-semibold text-success">2,450 ฿</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Right Column -->
+
+        <!-- Aging Inventory Alert -->
+        <div class="bg-white rounded-lg border border-steel-200 shadow-card">
+          <div class="flex items-center justify-between px-4 lg:px-5 py-3 border-b border-steel-200">
+            <h2 class="font-semibold text-base text-steel-900 flex items-center gap-2">
+              <i data-lucide="alert-triangle" class="w-4 h-4 text-warning"></i>
+              สินค้าค้างนาน
+            </h2>
+            <span class="bg-warning-light text-warning text-xs font-medium px-2 py-0.5 rounded-full">3 รายการ</span>
+          </div>
+          <div class="divide-y divide-steel-100">
+            <div class="px-4 lg:px-5 py-3.5">
+              <div class="flex items-center justify-between mb-1">
+                <p class="text-sm font-medium text-steel-900">เหล็กเส้น</p>
+                <span class="bg-condition-fair-light text-condition-fair text-xs font-medium px-2 py-0.5 rounded-full flex items-center gap-1">
+                  <span class="w-1.5 h-1.5 rounded-full bg-condition-fair"></span>
+                  พอใช้
+                </span>
+              </div>
+              <div class="flex items-center justify-between text-xs text-steel-500">
+                <span>80 กก. • LOT #PO002</span>
+                <span class="text-warning font-medium flex items-center gap-1">
+                  <i data-lucide="clock" class="w-3 h-3"></i>
+                  30 วัน ⚠️
+                </span>
+              </div>
+            </div>
+            <div class="px-4 lg:px-5 py-3.5">
+              <div class="flex items-center justify-between mb-1">
+                <p class="text-sm font-medium text-steel-900">อะไหล่รถยนต์</p>
+                <span class="bg-condition-good-light text-condition-good text-xs font-medium px-2 py-0.5 rounded-full flex items-center gap-1">
+                  <span class="w-1.5 h-1.5 rounded-full bg-condition-good"></span>
+                  ดี
+                </span>
+              </div>
+              <div class="flex items-center justify-between text-xs text-steel-500">
+                <span>15 ชิ้น • LOT #PO005</span>
+                <span class="text-danger font-medium flex items-center gap-1">
+                  <i data-lucide="clock" class="w-3 h-3"></i>
+                  45 วัน 🔴
+                </span>
+              </div>
+            </div>
+            <div class="px-4 lg:px-5 py-3.5">
+              <div class="flex items-center justify-between mb-1">
+                <p class="text-sm font-medium text-steel-900">สังกะสีแผ่น</p>
+                <span class="bg-condition-poor-light text-condition-poor text-xs font-medium px-2 py-0.5 rounded-full flex items-center gap-1">
+                  <span class="w-1.5 h-1.5 rounded-full bg-condition-poor"></span>
+                  ชำรุด
+                </span>
+              </div>
+              <div class="flex items-center justify-between text-xs text-steel-500">
+                <span>25 แผ่น • LOT #PO004</span>
+                <span class="text-warning font-medium flex items-center gap-1">
+                  <i data-lucide="clock" class="w-3 h-3"></i>
+                  35 วัน ⚠️
+                </span>
+              </div>
+            </div>
+          </div>
+          <div class="px-4 lg:px-5 py-3 border-t border-steel-200">
+            <a href="#" class="text-sm text-primary hover:text-primary-dark font-medium flex items-center gap-1">
+              ดูรายงานสินค้าค้างนาน
+              <i data-lucide="chevron-right" class="w-3.5 h-3.5"></i>
+            </a>
+          </div>
+        </div>
+
+        <!-- Branch Comparison (full width on mobile, right col on desktop) -->
+        <div class="lg:col-span-2 bg-white rounded-lg border border-steel-200 shadow-card">
+          <div class="flex items-center justify-between px-4 lg:px-5 py-3 border-b border-steel-200">
+            <h2 class="font-semibold text-base text-steel-900">เปรียบเทียบสาขา</h2>
+            <div class="flex items-center gap-2">
+              <span class="text-xs text-steel-400 bg-steel-50 px-2 py-1 rounded">วันนี้</span>
+            </div>
+          </div>
+          <div class="overflow-x-auto">
+            <table class="w-full text-sm">
+              <thead>
+                <tr class="border-b border-steel-100 text-steel-500 text-xs font-medium">
+                  <th class="text-left px-4 lg:px-5 py-3">สาขา</th>
+                  <th class="text-right px-4 py-3">รับซื้อ</th>
+                  <th class="text-right px-4 py-3">ขาย</th>
+                  <th class="text-right px-4 py-3">กำไร</th>
+                  <th class="text-right px-4 py-3 pr-5">บิล</th>
+                </tr>
+              </thead>
+              <tbody class="divide-y divide-steel-50">
+                <tr class="hover:bg-steel-50 transition-colors">
+                  <td class="px-4 lg:px-5 py-3 font-medium text-steel-900">สาขาหลัก</td>
+                  <td class="text-right px-4 py-3 text-steel-700">4,200 ฿</td>
+                  <td class="text-right px-4 py-3 text-steel-700">5,100 ฿</td>
+                  <td class="text-right px-4 py-3 text-success font-medium">900 ฿</td>
+                  <td class="text-right px-4 py-3 pr-5 text-steel-600">6</td>
+                </tr>
+                <tr class="hover:bg-steel-50 transition-colors">
+                  <td class="px-4 lg:px-5 py-3 font-medium text-steel-900">สาขาลำพูน</td>
+                  <td class="text-right px-4 py-3 text-steel-700">2,100 ฿</td>
+                  <td class="text-right px-4 py-3 text-steel-700">3,800 ฿</td>
+                  <td class="text-right px-4 py-3 text-success font-medium">1,700 ฿</td>
+                  <td class="text-right px-4 py-3 pr-5 text-steel-600">4</td>
+                </tr>
+                <tr class="hover:bg-steel-50 transition-colors">
+                  <td class="px-4 lg:px-5 py-3 font-medium text-steel-900">สาขาเชียงใหม่</td>
+                  <td class="text-right px-4 py-3 text-steel-700">1,500 ฿</td>
+                  <td class="text-right px-4 py-3 text-steel-700">2,100 ฿</td>
+                  <td class="text-right px-4 py-3 text-success font-medium">600 ฿</td>
+                  <td class="text-right px-4 py-3 pr-5 text-steel-600">3</td>
+                </tr>
+                <tr class="hover:bg-steel-50 transition-colors">
+                  <td class="px-4 lg:px-5 py-3 font-medium text-steel-900">สาขาภูกามยาว</td>
+                  <td class="text-right px-4 py-3 text-steel-700">650 ฿</td>
+                  <td class="text-right px-4 py-3 text-steel-700">1,300 ฿</td>
+                  <td class="text-right px-4 py-3 text-success font-medium">650 ฿</td>
+                  <td class="text-right px-4 py-3 pr-5 text-steel-600">2</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+      </div>
+    </main>
+  </div>
+
+  <!-- ═══════════ BOTTOM NAV (Mobile) ═══════════ -->
+  <nav class="fixed bottom-0 left-0 right-0 z-50 bg-white border-t border-steel-200 lg:hidden pb-safe">
+    <div class="grid grid-cols-5 h-16">
+      <a href="#" class="flex flex-col items-center justify-center gap-0.5 text-primary">
+        <i data-lucide="layout-dashboard" class="w-5 h-5"></i>
+        <span class="text-[10px] font-medium">แดชบอร์ด</span>
+      </a>
+      <a href="#" class="flex flex-col items-center justify-center gap-0.5 text-steel-400 hover:text-steel-600">
+        <i data-lucide="shopping-cart" class="w-5 h-5"></i>
+        <span class="text-[10px]">รับซื้อ</span>
+      </a>
+      <a href="#" class="flex flex-col items-center justify-center gap-0.5 text-steel-400 hover:text-steel-600">
+        <i data-lucide="tag" class="w-5 h-5"></i>
+        <span class="text-[10px]">ขาย</span>
+      </a>
+      <a href="#" class="flex flex-col items-center justify-center gap-0.5 text-steel-400 hover:text-steel-600 relative">
+        <i data-lucide="package" class="w-5 h-5"></i>
+        <span class="text-[10px]">คลัง</span>
+        <span class="absolute top-0.5 right-[18px] w-4 h-4 bg-warning text-white text-[8px] font-bold rounded-full flex items-center justify-center">3</span>
+      </a>
+      <a href="#" class="flex flex-col items-center justify-center gap-0.5 text-steel-400 hover:text-steel-600">
+        <i data-lucide="bar-chart-3" class="w-5 h-5"></i>
+        <span class="text-[10px]">รายงาน</span>
+      </a>
+    </div>
+  </nav>
+
+  <script>
+    lucide.createIcons();
+  </script>
+</body>
+</html>
