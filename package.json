@@ -12,6 +12,7 @@
     "db:generate": "pnpm -F @solocorp/db db:generate",
     "db:push": "pnpm -F @solocorp/db db:push",
     "db:migrate": "pnpm -F @solocorp/db db:migrate",
+    "db:seed": "pnpm -F @solocorp/db db:seed",
     "db:studio": "pnpm -F @solocorp/db db:studio"
   },
   "engines": {
