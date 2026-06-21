@@ -55,6 +55,21 @@ export class BridgeApiError extends Error {
     return this.status === 401;
   }
 
+  /**
+   * Static factory — สร้าง BridgeApiError จาก HTTP response
+   */
+  static fromHttpError(
+    status: number,
+    body: { code?: string; message?: string; fieldErrors?: Record<string, string[]> }
+  ): BridgeApiError {
+    return new BridgeApiError(
+      status,
+      body?.code || "UNKNOWN",
+      body?.message || `HTTP ${status}`,
+      body?.fieldErrors
+    );
+  }
+
   get isForbidden(): boolean {
     return this.status === 403;
   }
@@ -130,7 +145,8 @@ export function getBridgeConfig(): Readonly<BridgeConfig> {
 function getCookie(name: string): string | null {
   if (typeof document === "undefined") return null;
   const match = document.cookie.match(new RegExp(`(^| )${name}=([^;]+)`));
-  return match ? decodeURIComponent(match[2]) : null;
+  const value = match?.[2];
+  return value !== undefined ? decodeURIComponent(value) : null;
 }
 
 /**

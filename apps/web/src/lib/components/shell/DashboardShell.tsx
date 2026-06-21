@@ -44,7 +44,7 @@ const queryClient = new QueryClient({
         return failureCount < 3;
       },
       staleTime: 30 * 1000,
-      gcTime: 5 * 60 * 1000,
+      cacheTime: 5 * 60 * 1000,
       refetchOnWindowFocus: false,
     },
   },

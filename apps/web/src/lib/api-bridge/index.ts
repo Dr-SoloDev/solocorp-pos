@@ -19,6 +19,11 @@ import { inventoryApi } from "./inventory";
 import { reportsApi } from "./reports";
 import { catalogApi } from "./catalog";
 import { sellersApi } from "./sellers";
+import { branchesApi } from "./branches";
+import { usersApi } from "./users";
+import { salesApi } from "./sales";
+import { settingsApi } from "./settings";
+import { stockTransfersApi } from "./stock-transfers";
 
 // Export client utilities
 export { client, configureBridge, getBridgeConfig, BridgeApiError };
@@ -39,6 +44,11 @@ export const apiBridge = {
   reports: reportsApi,
   catalog: catalogApi,
   sellers: sellersApi,
+  branches: branchesApi,
+  users: usersApi,
+  sales: salesApi,
+  settings: settingsApi,
+  stockTransfers: stockTransfersApi,
 } as const;
 
 export type ApiBridge = typeof apiBridge;
