@@ -29,7 +29,7 @@ import {
   ShoppingCart,
   Package,
   BarChart3,
-  MoreHorizontal,
+  Scale,
   ChevronDown,
   User,
 } from "lucide-react";
@@ -64,33 +64,33 @@ interface NavItem {
 const bottomNavItems: NavItem[] = [
   {
     label: "หน้าแรก",
-    path: "/",
+    path: "/dashboard",
     icon: <LayoutDashboard className="w-6 h-6" />,
     auth: "any",
   },
   {
+    label: "ชั่งน้ำหนัก",
+    path: "/dashboard/weigh",
+    icon: <Scale className="w-6 h-6" />,
+    auth: "any",
+  },
+  {
     label: "รับซื้อ",
-    path: "/purchases",
+    path: "/dashboard/purchase-orders",
     icon: <ShoppingCart className="w-6 h-6" />,
     auth: "manager",
   },
   {
     label: "คลัง",
-    path: "/inventory",
+    path: "/dashboard/inventory",
     icon: <Package className="w-6 h-6" />,
     auth: "any",
     badge: true,
   },
   {
-    label: "รายงาน",
-    path: "/reports",
+    label: "ขาย",
+    path: "/dashboard/sale-lots",
     icon: <BarChart3 className="w-6 h-6" />,
-    auth: "any",
-  },
-  {
-    label: "เพิ่มเติม",
-    path: "/more",
-    icon: <MoreHorizontal className="w-6 h-6" />,
     auth: "any",
   },
 ];
@@ -141,8 +141,12 @@ function BottomNav() {
   const pathname = usePathname();
 
   const isActive = (item: NavItem) => {
-    if (item.path === "/") return pathname === "/";
-    return pathname.startsWith(item.path);
+    if (item.path === "/dashboard") {
+      // Only exact match for dashboard
+      return pathname === "/dashboard";
+    }
+    // Exact match or exact-with-query for other routes
+    return pathname === item.path || pathname.startsWith(item.path + "/");
   };
 
   return (
