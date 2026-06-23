@@ -5,7 +5,7 @@ import { apiBridge, BridgeApiError } from "@/lib/api-bridge";
 import DashboardShell from "@/lib/components/shell/DashboardShell";
 import { formatCurrency } from "@/lib/utils";
 import type {
-  InventoryItemDTO,
+  ProductDTO,
   BranchDTO,
 } from "@/lib/api-bridge/types";
 import {
@@ -34,15 +34,15 @@ import {
 
 interface SaleItem {
   tempId: string;
-  purchase_order_item_id: number;
-  catalog_item_name: string;
+  product_id: number;
+  name: string;
   category_name: string;
-  available_qty: number;
   quantity: number;
-  price_per_unit: number;
+  price: number;
   total: number;
 }
 
+type PaymentMethod = "cash" | "bank_transfer";
 type Step = "buyer" | "items" | "review";
 
 // ─── Buyer Info Form ────────────────────────────────────────────────────────
@@ -60,7 +60,7 @@ function BuyerForm({
     <div className="space-y-3">
       <div>
         <label className="block text-sm font-medium text-steel-700 mb-1">
-          ชื่อผู้ซื้อ / ลูกค้า <span className="text-danger">*</span>
+          ชื่อผู้ซื้อ / ลูกค้า
         </label>
         <div className="relative">
           <User className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-steel-400" />
@@ -68,7 +68,7 @@ function BuyerForm({
             type="text"
             value={buyerName}
             onChange={(e) => onChange(e.target.value, buyerPhone)}
-            placeholder="ชื่อผู้ซื้อ"
+            placeholder="ชื่อผู้ซื้อ (ไม่บังคับ)"
             className="w-full pl-9 pr-3 py-2.5 bg-white border border-steel-200 rounded-lg text-sm focus:border-primary focus:outline-none focus:ring-1 focus:ring-primary min-h-input"
           />
         </div>
@@ -92,16 +92,16 @@ function BuyerForm({
   );
 }
 
-// ─── Inventory Item Picker ──────────────────────────────────────────────────
+// ─── Product Picker (inventory → sale) ──────────────────────────────────────
 
-function InventoryItemPicker({
+function ProductPicker({
   onSelect,
   onClose,
 }: {
-  onSelect: (item: InventoryItemDTO) => void;
+  onSelect: (item: ProductDTO) => void;
   onClose: () => void;
 }) {
-  const [items, setItems] = useState<InventoryItemDTO[]>([]);
+  const [items, setItems] = useState<ProductDTO[]>([]);
   const [search, setSearch] = useState("");
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
@@ -109,9 +109,9 @@ function InventoryItemPicker({
   useEffect(() => {
     setLoading(true);
     apiBridge.inventory
-      .getAll({ limit: 200 })
+      .getProducts({ limit: 200 })
       .then((res) => setItems(res.data))
-      .catch(() => setError("ไม่สามารถโหลดสต็อกได้"))
+      .catch(() => setError("ไม่สามารถโหลดสินค้าได้"))
       .finally(() => setLoading(false));
   }, []);
 
@@ -120,7 +120,7 @@ function InventoryItemPicker({
       search
         ? items.filter(
             (i) =>
-              (i.catalog_item_name || "")
+              (i.name || "")
                 .toLowerCase()
                 .includes(search.toLowerCase()) ||
               (i.category_name || "")
@@ -182,13 +182,13 @@ function InventoryItemPicker({
                     onSelect(item);
                     onClose();
                   }}
-                  disabled={item.available_qty <= 0}
+                  disabled={item.quantity <= 0}
                   className="w-full text-left px-4 py-3.5 hover:bg-steel-50 active:bg-steel-100 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
                 >
                   <div className="flex items-center justify-between">
                     <div className="min-w-0 flex-1 mr-2">
                       <p className="text-sm font-medium text-steel-800 truncate">
-                        {item.catalog_item_name}
+                        {item.name}
                       </p>
                       <p className="text-xs text-steel-400 mt-0.5">
                         {item.category_name || "ทั่วไป"}
@@ -197,14 +197,14 @@ function InventoryItemPicker({
                     <div className="text-right shrink-0">
                       <p
                         className={`text-sm font-semibold ${
-                          item.available_qty > 0
+                          item.quantity > 0
                             ? "text-primary"
                             : "text-steel-400"
                         }`}
                       >
-                        คงเหลือ {item.available_qto} {item.unit}
+                        คงเหลือ {item.quantity} {item.unit}
                       </p>
-                      {item.available_qty <= 0 && (
+                      {item.quantity <= 0 && (
                         <p className="text-[10px] text-danger mt-0.5">
                           สินค้าหมด
                         </p>
@@ -221,7 +221,7 @@ function InventoryItemPicker({
   );
 }
 
-// ─── Sale Item Row ──────────────────────────────────────────────────────────
+// ─── Sale Item Row ─────────────────────────────────────────────────────────
 
 function SaleItemRow({
   item,
@@ -242,10 +242,10 @@ function SaleItemRow({
           <Package className="w-4 h-4 text-primary shrink-0" />
           <div className="min-w-0">
             <p className="text-sm font-medium text-steel-800 truncate">
-              {item.catalog_item_name}
+              {item.name}
             </p>
             <p className="text-xs text-steel-400">
-              {item.category_name} · คงเหลือ {item.available_qty}
+              {item.category_name}
             </p>
           </div>
         </div>
@@ -270,7 +270,7 @@ function SaleItemRow({
                 const newQty = Math.max(0, item.quantity - 1);
                 onChange(index, {
                   quantity: newQty,
-                  total: newQty * item.price_per_unit,
+                  total: newQty * item.price,
                 });
               }}
               className="w-9 h-9 flex items-center justify-center bg-steel-100 rounded-lg text-steel-600 hover:bg-steel-200"
@@ -281,17 +281,14 @@ function SaleItemRow({
               type="number"
               step="0.01"
               min="0"
-              max={item.available_qty}
+              max={100000}
               inputMode="decimal"
               value={item.quantity || ""}
               onChange={(e) => {
-                const qty = Math.min(
-                  item.available_qty,
-                  Math.max(0, parseFloat(e.target.value) || 0)
-                );
+                const qty = Math.max(0, parseFloat(e.target.value) || 0);
                 onChange(index, {
                   quantity: qty,
-                  total: qty * item.price_per_unit,
+                  total: qty * item.price,
                 });
               }}
               className="flex-1 px-2 py-2 bg-steel-50 border border-steel-200 rounded-lg text-sm text-center font-medium focus:border-primary focus:outline-none focus:ring-1 focus:ring-primary min-h-input"
@@ -299,16 +296,15 @@ function SaleItemRow({
             <button
               onClick={() => {
                 const newQty = Math.min(
-                  item.available_qty,
+                  100000,
                   item.quantity + 1
                 );
                 onChange(index, {
                   quantity: newQty,
-                  total: newQty * item.price_per_unit,
+                  total: newQty * item.price,
                 });
               }}
-              disabled={item.quantity >= item.available_qty}
-              className="w-9 h-9 flex items-center justify-center bg-steel-100 rounded-lg text-steel-600 hover:bg-steel-200 disabled:opacity-50"
+              className="w-9 h-9 flex items-center justify-center bg-steel-100 rounded-lg text-steel-600 hover:bg-steel-200"
             >
               <Plus className="w-4 h-4" />
             </button>
@@ -326,11 +322,11 @@ function SaleItemRow({
             step="0.5"
             min="0"
             inputMode="decimal"
-            value={item.price_per_unit || ""}
+            value={item.price || ""}
             onChange={(e) => {
               const ppu = parseFloat(e.target.value) || 0;
               onChange(index, {
-                price_per_unit: ppu,
+                price: ppu,
                 total: item.quantity * ppu,
               });
             }}
@@ -374,6 +370,43 @@ function EmptySaleState({ onAdd }: { onAdd: () => void }) {
   );
 }
 
+// ─── Payment Method Selector ────────────────────────────────────────────────
+
+function PaymentSelector({
+  value,
+  onChange,
+}: {
+  value: PaymentMethod;
+  onChange: (v: PaymentMethod) => void;
+}) {
+  return (
+    <div className="space-y-2">
+      <label className="block text-sm font-medium text-steel-700">
+        วิธีการชำระเงิน
+      </label>
+      <div className="flex gap-2">
+        {[
+          { value: "cash" as const, label: "เงินสด", icon: "💵" },
+          { value: "bank_transfer" as const, label: "โอน", icon: "🏦" },
+        ].map((opt) => (
+          <button
+            key={opt.value}
+            onClick={() => onChange(opt.value)}
+            className={`flex-1 flex items-center justify-center gap-2 px-4 py-3 text-sm font-medium rounded-lg border transition-colors min-h-touch ${
+              value === opt.value
+                ? "bg-success text-white border-success"
+                : "bg-white text-steel-600 border-steel-200 hover:bg-steel-50"
+            }`}
+          >
+            <span>{opt.icon}</span>
+            {opt.label}
+          </button>
+        ))}
+      </div>
+    </div>
+  );
+}
+
 // ─── Main Payment Screen ────────────────────────────────────────────────────
 
 let _tempIdCounter = 0;
@@ -387,6 +420,7 @@ export default function PaymentScreen() {
   const [buyerName, setBuyerName] = useState("");
   const [buyerPhone, setBuyerPhone] = useState("");
   const [items, setItems] = useState<SaleItem[]>([]);
+  const [paymentMethod, setPaymentMethod] = useState<PaymentMethod>("cash");
   const [notes, setNotes] = useState("");
   const [showInventory, setShowInventory] = useState(false);
   const [submitting, setSubmitting] = useState(false);
@@ -407,18 +441,17 @@ export default function PaymentScreen() {
   );
 
   // ── Handlers ───────────────────────────────────────
-  const handleSelectInventoryItem = useCallback(
-    (inv: InventoryItemDTO) => {
+  const handleSelectProduct = useCallback(
+    (product: ProductDTO) => {
       setItems((prev) => [
         ...prev,
         {
           tempId: newTempId(),
-          purchase_order_item_id: inv.purchase_order_item_id,
-          catalog_item_name: inv.catalog_item_name,
-          category_name: inv.category_name || "",
-          available_qty: inv.available_qty,
+          product_id: product.id,
+          name: product.name,
+          category_name: product.category_name || "",
           quantity: 0,
-          price_per_unit: 0,
+          price: 0,
           total: 0,
         },
       ]);
@@ -427,10 +460,10 @@ export default function PaymentScreen() {
   );
 
   const handleUpdateItem = useCallback(
-    (index: number, updates: Partial<SaleItem>) => {
+    (index: number, updates: Partial<Omit<SaleItem, 'tempId'>>) => {
       setItems((prev) => {
         const next = [...prev];
-        next[index] = { ...next[index], ...updates };
+        next[index] = { ...next[index], ...updates } as SaleItem;
         return next;
       });
     },
@@ -443,27 +476,26 @@ export default function PaymentScreen() {
 
   // ── Submit ─────────────────────────────────────────
   const handleSubmit = async () => {
-    if (!buyerName.trim() || validItems.length === 0) return;
+    if (validItems.length === 0) return;
     setSubmitting(true);
     setSubmitError("");
 
     try {
       const result = await apiBridge.sales.create({
-        branch_id: 1,
-        buyer_name: buyerName.trim(),
-        buyer_phone: buyerPhone.trim() || undefined,
+        customer_id: undefined,
+        payment_method: paymentMethod,
         notes: notes.trim() || undefined,
         items: validItems.map((i) => ({
-          purchase_order_item_id: i.purchase_order_item_id,
+          product_id: i.product_id,
           quantity: i.quantity,
-          price_per_unit: i.price_per_unit,
+          price: i.price,
           total: i.total,
         })),
       });
 
       setSuccess({
         ref: result.data.reference_no,
-        amount: result.data.total_amount,
+        amount: grandTotal,
       });
     } catch (err) {
       setSubmitError(
@@ -480,6 +512,7 @@ export default function PaymentScreen() {
     setStep("buyer");
     setBuyerName("");
     setBuyerPhone("");
+    setPaymentMethod("cash");
     setItems([]);
     setNotes("");
     setSubmitError("");
@@ -569,8 +602,7 @@ export default function PaymentScreen() {
 
       <button
         onClick={() => setStep("items")}
-        disabled={!buyerName.trim()}
-        className="w-full flex items-center justify-center gap-2 px-4 py-3 bg-success text-white text-sm font-medium rounded-lg disabled:opacity-50 disabled:cursor-not-allowed min-h-touch mt-4"
+        className="w-full flex items-center justify-center gap-2 px-4 py-3 bg-success text-white text-sm font-medium rounded-lg min-h-touch mt-4"
       >
         ถัดไป
         <ChevronDown className="w-4 h-4 -rotate-90" />
@@ -631,6 +663,12 @@ export default function PaymentScreen() {
               </div>
             </div>
 
+            {/* Payment Method */}
+            <PaymentSelector
+              value={paymentMethod}
+              onChange={setPaymentMethod}
+            />
+
             {/* Notes */}
             <div className="space-y-1.5">
               <label className="block text-xs font-medium text-steel-600">
@@ -682,7 +720,9 @@ export default function PaymentScreen() {
           </div>
           <div className="flex items-center gap-2">
             <User className="w-4 h-4 text-steel-400" />
-            <span className="text-sm text-steel-800">{buyerName}</span>
+            <span className="text-sm text-steel-800">
+              {buyerName || "ลูกค้าทั่วไป"}
+            </span>
           </div>
           {buyerPhone && (
             <div className="flex items-center gap-2 mt-1">
@@ -690,6 +730,24 @@ export default function PaymentScreen() {
               <span className="text-sm text-steel-600">{buyerPhone}</span>
             </div>
           )}
+        </div>
+
+        {/* Payment Method */}
+        <div className="bg-white rounded-lg p-4 shadow-card">
+          <div className="flex items-center justify-between mb-1">
+            <h3 className="text-sm font-semibold text-steel-700">
+              วิธีการชำระเงิน
+            </h3>
+            <button
+              onClick={() => setStep("items")}
+              className="text-xs text-success font-medium min-h-touch px-2"
+            >
+              แก้ไข
+            </button>
+          </div>
+          <p className="text-sm text-steel-800">
+            {paymentMethod === "cash" ? "💵 เงินสด" : "🏦 โอน"}
+          </p>
         </div>
 
         {/* Items */}
@@ -714,10 +772,10 @@ export default function PaymentScreen() {
               >
                 <div className="min-w-0 flex-1 mr-2">
                   <p className="font-medium text-steel-800 truncate">
-                    {i + 1}. {item.catalog_item_name}
+                    {i + 1}. {item.name}
                   </p>
                   <p className="text-xs text-steel-400">
-                    {item.quantity} × {formatCurrency(item.price_per_unit)}
+                    {item.quantity} × {formatCurrency(item.price)}
                   </p>
                 </div>
                 <span className="font-semibold text-steel-900 shrink-0">
@@ -783,11 +841,11 @@ export default function PaymentScreen() {
   // ── Main Render ──────────────────────────────────
   return (
     <DashboardShell>
-      {/* Inventory Picker Overlay */}
+      {/* Product Picker Overlay */}
       {showInventory && (
-        <InventoryItemPicker
+        <ProductPicker
           onSelect={(item) => {
-            handleSelectInventoryItem(item);
+            handleSelectProduct(item);
             setShowInventory(false);
           }}
           onClose={() => setShowInventory(false)}
