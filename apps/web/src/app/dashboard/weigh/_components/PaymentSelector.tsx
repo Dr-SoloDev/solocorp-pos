@@ -1,0 +1,34 @@
+export function PaymentSelector({
+  value,
+  onChange,
+}: {
+  value: "cash" | "bank_transfer";
+  onChange: (_: "cash" | "bank_transfer") => void;
+}) {
+  return (
+    <div className="space-y-2">
+      <label className="block text-sm font-medium text-steel-700">
+        วิธีการชำระเงิน
+      </label>
+      <div className="flex gap-2">
+        {[
+          { value: "cash" as const, label: "เงินสด", icon: "💵" },
+          { value: "bank_transfer" as const, label: "โอน", icon: "🏦" },
+        ].map((opt) => (
+          <button
+            key={opt.value}
+            onClick={() => onChange(opt.value)}
+            className={`flex-1 flex items-center justify-center gap-2 px-4 py-3 text-sm font-medium rounded-lg border transition-colors min-h-touch ${
+              value === opt.value
+                ? "bg-primary text-white border-primary"
+                : "bg-white text-steel-600 border-steel-200 hover:bg-steel-50"
+            }`}
+          >
+            <span>{opt.icon}</span>
+            {opt.label}
+          </button>
+        ))}
+      </div>
+    </div>
+  );
+}

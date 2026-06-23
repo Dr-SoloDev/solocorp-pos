@@ -7,13 +7,29 @@
     "dev": "turbo dev",
     "build": "turbo build",
     "lint": "turbo lint",
+    "typecheck": "cd apps/web && tsc --noEmit",
     "format": "prettier --write \"**/*.{ts,tsx,js,jsx,json,md}\"",
+    "format:check": "prettier --check \"**/*.{ts,tsx,js,jsx,json,md}\"",
     "clean": "turbo clean && rm -rf node_modules",
     "db:generate": "pnpm -F @solocorp/db db:generate",
     "db:push": "pnpm -F @solocorp/db db:push",
     "db:migrate": "pnpm -F @solocorp/db db:migrate",
     "db:seed": "pnpm -F @solocorp/db db:seed",
-    "db:studio": "pnpm -F @solocorp/db db:studio"
+    "db:studio": "pnpm -F @solocorp/db db:studio",
+    "prepare": "husky"
+  },
+  "lint-staged": {
+    "apps/web/src/**/*.{ts,tsx}": [
+      "apps/web/node_modules/.bin/eslint --fix --max-warnings 0"
+    ],
+    "*.{json,md,yaml,yml}": [
+      "prettier --write"
+    ]
+  },
+  "devDependencies": {
+    "husky": "^9.1.7",
+    "lint-staged": "^17.0.8",
+    "prettier": "^3.8.4"
   },
   "engines": {
     "node": ">=18.0.0"
