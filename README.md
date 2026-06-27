@@ -4,15 +4,15 @@
 
 ## Tech Stack
 
-| Layer | Technology |
-|-------|-----------|
-| **Framework** | Next.js 14 (App Router) + TypeScript |
-| **API Layer** | tRPC (type-safe, no REST endpoints) |
-| **ORM** | Prisma + PostgreSQL 16 |
-| **Styling** | TailwindCSS v3 + Design Tokens |
-| **Auth** | NextAuth.js v5 (Auth.js) with JWT + RBAC |
-| **Package Manager** | pnpm (monorepo with Turborepo) |
-| **Deploy** | Docker Compose |
+| Layer               | Technology                               |
+| ------------------- | ---------------------------------------- |
+| **Framework**       | Next.js 14 (App Router) + TypeScript     |
+| **API Layer**       | tRPC (type-safe, no REST endpoints)      |
+| **ORM**             | Prisma + PostgreSQL 16                   |
+| **Styling**         | TailwindCSS v3 + Design Tokens           |
+| **Auth**            | NextAuth.js v5 (Auth.js) with JWT + RBAC |
+| **Package Manager** | pnpm (monorepo with Turborepo)           |
+| **Deploy**          | Docker Compose                           |
 
 ## Project Structure
 
@@ -86,24 +86,24 @@ pnpm dev
 
 ### Commands
 
-| Command | Description |
-|---------|-------------|
-| `pnpm dev` | Start all apps in dev mode |
-| `pnpm build` | Build all packages + apps |
-| `pnpm lint` | Lint all projects |
-| `pnpm db:generate` | Generate Prisma client |
-| `pnpm db:push` | Push schema to DB (dev) |
-| `pnpm db:migrate` | Run Prisma migrations |
-| `pnpm db:studio` | Open Prisma Studio (DB GUI) |
-| `pnpm format` | Format code with Prettier |
+| Command            | Description                 |
+| ------------------ | --------------------------- |
+| `pnpm dev`         | Start all apps in dev mode  |
+| `pnpm build`       | Build all packages + apps   |
+| `pnpm lint`        | Lint all projects           |
+| `pnpm db:generate` | Generate Prisma client      |
+| `pnpm db:push`     | Push schema to DB (dev)     |
+| `pnpm db:migrate`  | Run Prisma migrations       |
+| `pnpm db:studio`   | Open Prisma Studio (DB GUI) |
+| `pnpm format`      | Format code with Prettier   |
 
 ### Docker Compose Services
 
-| Service | Port | Description |
-|---------|------|-------------|
-| PostgreSQL | 5432 | Database |
-| Adminer | 8080 | Database admin UI |
-| App | 3000 | Next.js dev server |
+| Service    | Port | Description        |
+| ---------- | ---- | ------------------ |
+| PostgreSQL | 5432 | Database           |
+| Adminer    | 8080 | Database admin UI  |
+| App        | 3000 | Next.js dev server |
 
 ```bash
 # Start all services
@@ -119,6 +119,7 @@ docker compose -f docker/docker-compose.yml down
 ### Adminer
 
 Open `http://localhost:8080` — login with:
+
 - **System:** PostgreSQL
 - **Server:** postgres
 - **Username:** solocorp
@@ -153,6 +154,7 @@ All API calls go through tRPC (no REST endpoints). The tRPC router is defined in
 ## Design System
 
 Design tokens และ Brand Guide อยู่ที่ `design-system/`:
+
 - `tailwind.config.js` — Design token definitions
 - `brand-guide.md` — Complete brand guide
 - `mockups/` — HTML mockups
