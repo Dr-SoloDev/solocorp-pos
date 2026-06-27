@@ -1,5 +1,5 @@
 {
-  "name": "@solocorp/db",
+  "name": "@lekk/db",
   "version": "0.1.0",
   "private": true,
   "main": "./src/index.ts",
@@ -20,7 +20,7 @@
     "@types/bcryptjs": "^3.0.0",
     "prisma": "^6.0.0",
     "tsx": "^4.19.0",
-    "@solocorp/typescript-config": "workspace:*",
+    "@lekk/typescript-config": "workspace:*",
     "typescript": "^5.6.0"
   }
 }

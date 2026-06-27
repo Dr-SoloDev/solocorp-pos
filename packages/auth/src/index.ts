@@ -1,7 +1,7 @@
 import NextAuth from "next-auth";
 import { PrismaAdapter } from "@auth/prisma-adapter";
 import Credentials from "next-auth/providers/credentials";
-import { prisma } from "@solocorp/db";
+import { prisma } from "@lekk/db";
 import { compare } from "bcryptjs";
 
 import type { NextAuthConfig, DefaultSession } from "next-auth";

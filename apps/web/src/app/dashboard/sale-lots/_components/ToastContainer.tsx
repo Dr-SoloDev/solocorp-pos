@@ -1,7 +1,7 @@
 "use client";
 
 import { X, Check, AlertCircle, FileText } from "lucide-react";
-import { cn } from "@solocorp/ui";
+import { cn } from "@lekk/ui";
 import type { ToastMessage } from "./types";
 
 export function ToastContainer({

@@ -3,8 +3,8 @@ import "./globals.css";
 
 export const metadata: Metadata = {
   title: {
-    default: "SoloCorp POS",
-    template: "%s | SoloCorp POS",
+    default: "Lekk",
+    template: "%s | Lekk",
   },
   description: "ระบบรับซื้อของเก่า สำหรับคนขายของเก่า",
   manifest: "/manifest.json",

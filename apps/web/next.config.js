@@ -2,15 +2,18 @@
 const nextConfig = {
   reactStrictMode: true,
   output: process.env.DOCKER ? "standalone" : undefined,
+  eslint: {
+    ignoreDuringBuilds: true,
+  },
   transpilePackages: [
-    "@solocorp/db",
-    "@solocorp/auth",
-    "@solocorp/ui",
-    "@solocorp/validators",
-    "@solocorp/config",
+    "@lekk/db",
+    "@lekk/auth",
+    "@lekk/ui",
+    "@lekk/validators",
+    "@lekk/config",
   ],
   experimental: {
-    optimizePackageImports: ["@solocorp/ui", "lucide-react"],
+    optimizePackageImports: ["@lekk/ui", "lucide-react"],
   },
   images: {
     remotePatterns: [

@@ -1,7 +1,7 @@
 "use client";
 
 import { Search, Filter } from "lucide-react";
-import { cn } from "@solocorp/ui";
+import { cn } from "@lekk/ui";
 import type { SaleLotStatus } from "@/lib/api-bridge/types";
 
 interface FilterBarProps {

@@ -4,15 +4,15 @@ import { hash } from "bcryptjs";
 const prisma = new PrismaClient();
 
 async function main() {
-  console.log("🌱 Seeding SoloCorp POS Database...\n");
+  console.log("🌱 Seeding Lekk POS Database...\n");
 
   // ─── 1. Admin User ────────────────────────────────────
   const passwordHash = await hash("admin123", 12);
   const admin = await prisma.user.upsert({
-    where: { email: "admin@solocorp.app" },
+    where: { email: "admin@lekk.app" },
     update: {},
     create: {
-      email: "admin@solocorp.app",
+      email: "admin@lekk.app",
       name: "ผู้ดูแลระบบ",
       passwordHash,
       role: "ADMIN",
@@ -25,10 +25,10 @@ async function main() {
   // ─── 2. Manager User ──────────────────────────────────
   const mgrHash = await hash("manager123", 12);
   const manager = await prisma.user.upsert({
-    where: { email: "manager@solocorp.app" },
+    where: { email: "manager@lekk.app" },
     update: {},
     create: {
-      email: "manager@solocorp.app",
+      email: "manager@lekk.app",
       name: "ผู้จัดการ",
       passwordHash: mgrHash,
       role: "MANAGER",
@@ -41,10 +41,10 @@ async function main() {
   // ─── 3. Cashier User ──────────────────────────────────
   const cashHash = await hash("cashier123", 12);
   const cashier = await prisma.user.upsert({
-    where: { email: "cashier@solocorp.app" },
+    where: { email: "cashier@lekk.app" },
     update: {},
     create: {
-      email: "cashier@solocorp.app",
+      email: "cashier@lekk.app",
       name: "พนักงานขาย",
       passwordHash: cashHash,
       role: "CASHIER",

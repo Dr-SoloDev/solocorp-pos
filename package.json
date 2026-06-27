@@ -1,8 +1,8 @@
 {
-  "name": "solocorp-pos",
+  "name": "lekk",
   "version": "0.1.0",
   "private": true,
-  "description": "SoloCorp POS — Project Bangkok (T3 Stack)",
+  "description": "Lekk POS — ระบบจัดการร้านรับซื้อของเก่า",
   "scripts": {
     "dev": "turbo dev",
     "build": "turbo build",
@@ -11,11 +11,11 @@
     "format": "prettier --write \"**/*.{ts,tsx,js,jsx,json,md}\"",
     "format:check": "prettier --check \"**/*.{ts,tsx,js,jsx,json,md}\"",
     "clean": "turbo clean && rm -rf node_modules",
-    "db:generate": "pnpm -F @solocorp/db db:generate",
-    "db:push": "pnpm -F @solocorp/db db:push",
-    "db:migrate": "pnpm -F @solocorp/db db:migrate",
-    "db:seed": "pnpm -F @solocorp/db db:seed",
-    "db:studio": "pnpm -F @solocorp/db db:studio",
+    "db:generate": "pnpm -F @lekk/db db:generate",
+    "db:push": "pnpm -F @lekk/db db:push",
+    "db:migrate": "pnpm -F @lekk/db db:migrate",
+    "db:seed": "pnpm -F @lekk/db db:seed",
+    "db:studio": "pnpm -F @lekk/db db:studio",
     "prepare": "husky"
   },
   "lint-staged": {
@@ -34,5 +34,8 @@
   "engines": {
     "node": ">=18.0.0"
   },
-  "packageManager": "pnpm@11.8.0"
+  "packageManager": "pnpm@11.8.0",
+  "dependencies": {
+    "turbo": "^2.9.18"
+  }
 }

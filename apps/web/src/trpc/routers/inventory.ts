@@ -1,6 +1,6 @@
 import { z } from "zod";
 import { router, protectedProcedure } from "../trpc";
-import { prisma } from "@solocorp/db";
+import { prisma } from "@lekk/db";
 
 export const inventoryRouter = router({
   getAll: protectedProcedure.query(async () => {

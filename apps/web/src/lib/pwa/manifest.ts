@@ -1,5 +1,5 @@
 /**
- * SoloCorp POS — PWA Manifest
+ * Lekk POS — PWA Manifest
  * =============================
  * Web App Manifest สำหรับ Project Bangkok Phase 1
  *
@@ -11,8 +11,8 @@
  */
 
 const manifest = {
-  name: "SoloCorp POS",
-  short_name: "SoloCorp",
+  name: "Lekk POS",
+  short_name: "Lekk",
   description: "ระบบรับซื้อของเก่า — สำหรับร้านรับซื้อของเก่าและคนขายของเก่า",
   start_url: "/",
   display: "standalone",

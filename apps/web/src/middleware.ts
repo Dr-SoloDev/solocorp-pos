@@ -12,7 +12,7 @@
  * @phase 1
  */
 
-import { auth } from "@solocorp/auth";
+import { auth } from "@lekk/auth";
 import { NextResponse } from "next/server";
 
 // ─── Middleware ──────────────────────────────────────────────────────────────

@@ -2,8 +2,8 @@
 
 import { useState } from "react";
 import type { SaleLotDTO } from "@/lib/api-bridge/types";
-import { Button } from "@solocorp/ui";
-import { Input } from "@solocorp/ui";
+import { Button } from "@lekk/ui";
+import { Input } from "@lekk/ui";
 import {
   X,
   Loader2,

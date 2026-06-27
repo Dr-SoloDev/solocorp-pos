@@ -1,8 +1,8 @@
 "use client";
 
 import type { SaleLotDTO } from "@/lib/api-bridge/types";
-import { Button } from "@solocorp/ui";
-import { cn } from "@solocorp/ui";
+import { Button } from "@lekk/ui";
+import { cn } from "@lekk/ui";
 import {
   ChevronLeft,
   Package,

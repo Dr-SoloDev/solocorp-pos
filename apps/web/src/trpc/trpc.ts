@@ -2,7 +2,7 @@ import { z } from "zod";
 
 import { initTRPC, TRPCError } from "@trpc/server";
 import superjson from "superjson";
-import { auth } from "@solocorp/auth";
+import { auth } from "@lekk/auth";
 
 /**
  * 1. CONTEXT

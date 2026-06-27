@@ -14,7 +14,7 @@ import type {
   SaleLotStatus,
   SaleLotQueryParams,
 } from "@/lib/api-bridge/types";
-import { Button, cn } from "@solocorp/ui";
+import { Button, cn } from "@lekk/ui";
 import {
   AlertCircle,
   Banknote,

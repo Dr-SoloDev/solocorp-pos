@@ -1,4 +1,4 @@
-# SoloCorp POS
+# Lekk (เหล็ก)
 
 ระบบรับซื้อของเก่า สำหรับคนขายของเก่า
 
@@ -159,4 +159,4 @@ Design tokens และ Brand Guide อยู่ที่ `design-system/`:
 
 ## License
 
-Private — SoloCorp
+Private — Lekk

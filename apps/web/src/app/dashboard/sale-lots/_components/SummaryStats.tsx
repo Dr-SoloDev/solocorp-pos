@@ -1,6 +1,6 @@
 "use client";
 
-import { cn } from "@solocorp/ui";
+import { cn } from "@lekk/ui";
 import type { SaleLotDTO } from "@/lib/api-bridge/types";
 import { formatCurrency } from "@/lib/utils";
 

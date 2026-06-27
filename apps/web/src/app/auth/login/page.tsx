@@ -41,7 +41,7 @@ export default function LoginPage() {
       <div className="w-full max-w-md rounded-lg bg-white p-8 shadow-card">
         {/* Logo */}
         <div className="mb-8 text-center">
-          <h1 className="text-2xl font-bold text-primary">SoloCorp POS</h1>
+          <h1 className="text-2xl font-bold text-primary">Lekk</h1>
           <p className="mt-1 text-sm text-steel-500">
             ระบบรับซื้อของเก่า สำหรับคนขายของเก่า
           </p>
@@ -102,7 +102,7 @@ export default function LoginPage() {
         </form>
 
         <p className="mt-6 text-center text-xs text-steel-400">
-          SoloCorp POS v0.1.0
+          Lekk POS v0.1.0
         </p>
       </div>
     </main>

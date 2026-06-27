@@ -1,6 +1,6 @@
-# SoloCorp POS — Brand Guide 1-Pager
+# Lekk — Brand Guide 1-Pager
 
-> **Project:** SoloCorp POS (รหัส: Bangkok)
+> **Project:** Lekk POS (รหัส: Bangkok)
 > **Direction:** Industrial Modern
 > **Version:** 1.0.0
 > **วันที่:** 19 มิถุนายน 2569
@@ -10,8 +10,8 @@
 ## 🎨 Brand DNA
 
 ```
-SoloCorp POS = Industrial Workshop Utility
-───────────────────────────────────────────
+Lekk = Industrial Workshop Utility
+══════════════════════════════════════
 • Industrial — ไม่ใช่ ERP สำนักงาน: heavy border, เส้นหนา, dark steel
 • Modern — Blue accent ตัดกับ dark surfaces
 • Practical — Efficiency-first, information-dense
@@ -186,19 +186,26 @@ Fine      : 10px/0.625rem → 400 (Tags, timestamps)
 ## 📦 Logo & Brand Assets
 
 ```
-SoloCorp POS
-═══════════
+Lekk
+══════
+**Brand Name:** Lekk (เหล็ก)
 **Logo Type:** Text-based wordmark
 **Font:** Inter Bold 700
 **Color:** Primary Blue #1A56DB on light / #3B82F6 on dark
 **Size (Header):** 20px (1.25rem)
 **Spacing:** tracking-tight (-0.025em)
+**Abbreviation (logo badge):** Lk
 
 **Tagline (optional):**
   "ระบบรับซื้อของเก่า สำหรับคนขายของเก่า"
   Font: Sarabun 400, 14px, Steel 600
 
 **Favicon:** Cash icon (💰) หรือ Lucide `wallet` icon
+
+**Concept Logo Suggestion:**
+  โลโก้รูปเหล็กเส้นหรือแท่งเหล็ก (steel bar) ตัดกับตัวอักษร Lekk
+  เพื่อสื่อถึง "เหล็ก" และธุรกิจรับซื้อของเก่า
+  — Minimal, industrial feel, ใช้เส้นหนา ๆ แบบ heavy stroke
 ```
 
 ---

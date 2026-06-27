@@ -1,5 +1,5 @@
 {
-  "name": "@solocorp/eslint-config",
+  "name": "@lekk/eslint-config",
   "version": "0.1.0",
   "private": true,
   "publishConfig": {

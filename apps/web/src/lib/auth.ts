@@ -1,4 +1,4 @@
-import { auth } from "@solocorp/auth";
+import { auth } from "@lekk/auth";
 
 // Server-side helper to get current user in RSC
 export async function getCurrentUser() {

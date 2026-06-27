@@ -1,5 +1,5 @@
 // App-wide constants
-export const APP_NAME = "SoloCorp POS";
+export const APP_NAME = "Lekk POS";
 export const APP_DESCRIPTION = "ระบบรับซื้อของเก่า สำหรับคนขายของเก่า";
 export const APP_VERSION = "0.1.0";
 
@@ -26,7 +26,7 @@ export const LOW_STOCK_THRESHOLD = 10;
 export const CRITICAL_STOCK_THRESHOLD = 3;
 
 // Barcode prefix for internal use
-export const INTERNAL_BARCODE_PREFIX = "SC";
+export const INTERNAL_BARCODE_PREFIX = "LK";
 
 // Print settings
 export const THERMAL_PRINT_WIDTH_MM = 80;

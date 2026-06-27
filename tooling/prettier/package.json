@@ -1,5 +1,5 @@
 {
-  "name": "@solocorp/prettier-config",
+  "name": "@lekk/prettier-config",
   "version": "0.1.0",
   "private": true,
   "publishConfig": {

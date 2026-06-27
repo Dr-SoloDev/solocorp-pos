@@ -1,5 +1,5 @@
 /**
- * SoloCorp POS — Service Worker
+ * Lekk POS — Service Worker
  * ===============================
  * PWA Service Worker สำหรับ Project Bangkok Phase 1
  *
@@ -19,7 +19,7 @@
 // Prevent TypeScript strict errors on self
 declare const self: ServiceWorkerGlobalScope;
 
-const CACHE_NAME = "solocorp-pos-v1";
+const CACHE_NAME = "lekk-pos-v1";
 const STATIC_CACHE = `${CACHE_NAME}-static`;
 const SHELL_CACHE = `${CACHE_NAME}-shell`;
 

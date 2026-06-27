@@ -1,5 +1,5 @@
 /**
- * SoloCorp POS — Dashboard Shell Layout
+ * Lekk POS — Dashboard Shell Layout
  * =======================================
  * Mobile-first Shell Layout พร้อม Bottom Navigation + Header
  *
@@ -103,10 +103,10 @@ function ShellHeader() {
       {/* Logo */}
       <Link href="/" className="flex items-center gap-sm shrink-0">
         <div className="w-8 h-8 rounded bg-primary-600 flex items-center justify-center">
-          <span className="text-sm font-bold font-display">SC</span>
+          <span className="text-sm font-bold font-display">Lk</span>
         </div>
         <h1 className="text-sm font-semibold font-display hidden sm:block">
-          SoloCorp POS
+          Lekk
         </h1>
       </Link>
 

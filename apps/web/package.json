@@ -1,5 +1,5 @@
 {
-  "name": "@solocorp/web",
+  "name": "@lekk/web",
   "version": "0.1.0",
   "private": true,
   "scripts": {
@@ -10,11 +10,11 @@
     "clean": "rm -rf .turbo .next node_modules"
   },
   "dependencies": {
-    "@solocorp/auth": "workspace:*",
-    "@solocorp/config": "workspace:*",
-    "@solocorp/db": "workspace:*",
-    "@solocorp/ui": "workspace:*",
-    "@solocorp/validators": "workspace:*",
+    "@lekk/auth": "workspace:*",
+    "@lekk/config": "workspace:*",
+    "@lekk/db": "workspace:*",
+    "@lekk/ui": "workspace:*",
+    "@lekk/validators": "workspace:*",
     "@tanstack/react-query": "^4.36.0",
     "@trpc/client": "^10.45.0",
     "@trpc/next": "^10.45.0",
@@ -32,8 +32,8 @@
     "zod": "^3.24.0"
   },
   "devDependencies": {
-    "@solocorp/eslint-config": "workspace:*",
-    "@solocorp/typescript-config": "workspace:*",
+    "@lekk/eslint-config": "workspace:*",
+    "@lekk/typescript-config": "workspace:*",
     "@types/node": "^22.0.0",
     "@types/react": "^18.3.0",
     "@types/react-dom": "^18.3.0",

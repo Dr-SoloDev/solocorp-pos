@@ -16,7 +16,7 @@ RUN pnpm install --frozen-lockfile || pnpm install
 COPY . .
 
 # Generate Prisma client
-RUN pnpm -F @solocorp/db db:generate
+RUN pnpm -F @lekk/db db:generate
 
 EXPOSE 3000
 

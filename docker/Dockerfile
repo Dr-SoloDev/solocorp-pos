@@ -21,7 +21,7 @@ COPY apps/web/ ./apps/web/
 RUN pnpm install --frozen-lockfile
 
 # Generate Prisma client
-RUN pnpm -F @solocorp/db db:generate
+RUN pnpm -F @lekk/db db:generate
 
 # Build
 RUN pnpm build

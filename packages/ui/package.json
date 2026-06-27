@@ -1,5 +1,5 @@
 {
-  "name": "@solocorp/ui",
+  "name": "@lekk/ui",
   "version": "0.1.0",
   "private": true,
   "main": "./src/index.ts",
@@ -17,7 +17,7 @@
     "@radix-ui/react-slot": "^1.1.0"
   },
   "devDependencies": {
-    "@solocorp/typescript-config": "workspace:*",
+    "@lekk/typescript-config": "workspace:*",
     "typescript": "^5.6.0",
     "@types/react": "^18.3.0",
     "@types/react-dom": "^18.3.0"

@@ -1,5 +1,5 @@
 {
-  "extends": "@solocorp/typescript-config/node.json",
+  "extends": "@lekk/typescript-config/node.json",
   "compilerOptions": {
     "outDir": "./dist",
     "rootDir": "./src"

@@ -1,7 +1,7 @@
 "use client";
 
 import type { SaleLotStatus } from "@/lib/api-bridge/types";
-import { cn } from "@solocorp/ui";
+import { cn } from "@lekk/ui";
 
 const STATUS_CONFIG: Record<
   SaleLotStatus,

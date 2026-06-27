@@ -1,5 +1,5 @@
 {
-  "name": "@solocorp/typescript-config",
+  "name": "@lekk/typescript-config",
   "version": "0.1.0",
   "private": true,
   "publishConfig": {
